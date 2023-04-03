@@ -7,6 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler", "Scienta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientaScheduler.Authentication", "ScientaScheduler.Authentication\ScientaScheduler.Authentication.csproj", "{917AC1F6-1B4D-4FAB-ABD4-ED642C918AC9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project Logs", "Project Logs", "{37650B3F-2F97-4B13-9510-C85900EF8F4E}"
+	ProjectSection(SolutionItems) = preProject
+		ToDos List.txt = ToDos List.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientaScheduler.Business", "ScientaScheduler.Business\ScientaScheduler.Business.csproj", "{26624104-5CED-45F8-8596-9DF42055968D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +28,10 @@ Global
 		{917AC1F6-1B4D-4FAB-ABD4-ED642C918AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{917AC1F6-1B4D-4FAB-ABD4-ED642C918AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{917AC1F6-1B4D-4FAB-ABD4-ED642C918AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26624104-5CED-45F8-8596-9DF42055968D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26624104-5CED-45F8-8596-9DF42055968D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26624104-5CED-45F8-8596-9DF42055968D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26624104-5CED-45F8-8596-9DF42055968D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,5 @@
 03.04.2023 --> Solution içine bir webAPI projesi daha oluþturup, bunu Business için kullanmamýz gerekir, senin oluþturmuþ olduðun ScientaScheduler projesi 
-	son kullanýcýnýn gördüðü proje aslýnda
-03.04.2023 --> 
+	son kullanýcýnýn gördüðü proje aslýnda (03.04.2023 Tamamlandý)
+03.04.2023 --> Business katmaný içinde bir controller oluþturup bunu Authorize olarak belirtip onu jwt token ile çalýþtýrýlmasý
+03.04.2023 --> JWT token oluþturulmasý sýrasýnda Scienta dan gelen user ve yetki bilgileri de token içine yerkeltirilecek. Bunun için Scienta User Info
+	end-point e ihtiyaç var, bu end point username ve password bilgilerini alarak bize user bilgileri ve yetkilendirme bilgilerini geri döndürecek

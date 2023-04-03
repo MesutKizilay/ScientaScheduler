@@ -3,3 +3,4 @@
 03.04.2023 --> Business katmaný içinde bir controller oluþturup bunu Authorize olarak belirtip onu jwt token ile çalýþtýrýlmasý
 03.04.2023 --> JWT token oluþturulmasý sýrasýnda Scienta dan gelen user ve yetki bilgileri de token içine yerkeltirilecek. Bunun için Scienta User Info
 	end-point e ihtiyaç var, bu end point username ve password bilgilerini alarak bize user bilgileri ve yetkilendirme bilgilerini geri döndürecek
+03.04.2023 --> Create Token methodunda kullanýlan parametreler appsettings.json dosyasýndan okutulmalý

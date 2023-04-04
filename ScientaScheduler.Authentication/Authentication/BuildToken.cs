@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ScientaScheduler.Authentication.JWT;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -8,26 +9,29 @@ namespace ScientaScheduler.Authentication.Authentication
 {
     public class BuildToken : IAuthorization
     {
-        IConfiguration Configuration;
+        readonly IConfiguration Configuration;
+        TokenOptions _tokenOptions;
+
         public BuildToken(IConfiguration configuration)
         {
             Configuration = configuration;
+            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
         }
 
         public string CreateToken()
         {
-            var issuer = Configuration["JwtConfig:Issuer"];
-            var audience = Configuration["JwtConfig:Audience"];
-            var signingKey = Configuration["JwtConfig:SigningKey"];
-            var bytes = Encoding.UTF8.GetBytes(signingKey);
+            //var issuer = Configuration["JwtConfig:Issuer"];
+            //var audience = Configuration["JwtConfig:Audience"];
+            //var signingKey = Configuration["JwtConfig:SigningKey"];
+            //var bytes = Encoding.UTF8.GetBytes(signingKey);
 
-            SymmetricSecurityKey key = new SymmetricSecurityKey(bytes);
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.SecurityKey));
             SigningCredentials signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             JwtSecurityToken token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: audience,
+                issuer: _tokenOptions.Issuer,
+                audience: _tokenOptions.Audience,
                 notBefore: DateTime.Now,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration),
                 signingCredentials: signingCredentials);
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
@@ -36,7 +40,7 @@ namespace ScientaScheduler.Authentication.Authentication
 
         public bool ValidateToken(string token)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtConfig:SigningKey"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.SecurityKey));
             try
             {
                 JwtSecurityTokenHandler handler = new();
@@ -45,9 +49,9 @@ namespace ScientaScheduler.Authentication.Authentication
                     IssuerSigningKey = securityKey,
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
-                    ValidAudience = Configuration["JwtConfig:Audience"],
+                    ValidAudience = _tokenOptions.Audience,
                     ValidateAudience = true,
-                    ValidIssuer = Configuration["JwtConfig:Issuer"],
+                    ValidIssuer = _tokenOptions.Issuer,
                     ValidateIssuer = true,
                 }, out SecurityToken validatedToken);
                 return true;

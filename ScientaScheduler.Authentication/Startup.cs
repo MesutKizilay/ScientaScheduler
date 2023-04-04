@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ScientaScheduler.Authentication.Authentication;
+using ScientaScheduler.Authentication.JWT;
 using System;
 using System.Text;
 
@@ -33,17 +34,18 @@ namespace ScientaScheduler.Authentication
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ScientaScheduler.Authentication", Version = "v1" });
             });
 
-            var issuer = Configuration["JwtConfig:Issuer"];
-            var audience = Configuration["JwtConfig:Audience"];
-            var signingKey = Configuration["JwtConfig:SigningKey"];
+            var _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            //var issuer = Configuration["JwtConfig:Issuer"];
+            //var audience = Configuration["JwtConfig:Audience"];
+            //var signingKey = Configuration["JwtConfig:SigningKey"];
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = issuer,
-                    ValidAudience = audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
+                    ValidIssuer = _tokenOptions.Issuer,
+                    ValidAudience = _tokenOptions.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.SecurityKey)),
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero

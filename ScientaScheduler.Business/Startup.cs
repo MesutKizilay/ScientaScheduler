@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ScientaScheduler.Business.JWT;
 using System;
 using System.Text;
 
@@ -30,14 +31,18 @@ namespace ScientaScheduler.Business
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ScientaScheduler.Business", Version = "v1" });
             });
 
+            var _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = "http://localhost",
-                    ValidAudience = "http://localhost",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ScientaSchedulerAuthentication")),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = _tokenOptions.Issuer,
+                    ValidAudience = _tokenOptions.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.SecurityKey)),
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero

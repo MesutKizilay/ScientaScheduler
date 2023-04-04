@@ -23,6 +23,7 @@ namespace ScientaScheduler.Authentication.Controllers
         [HttpGet("[action]")]
         public IActionResult Login()
         {
+            // TODO : Scienta üzerinden kullanıcı adı ve şifre doğrulaması yapıldıktan sonra kullanıcıya ait bilgiler ve yetkiler eklenerek token oluşturulacak
             return Ok(buildToken.CreateToken());
         }
 

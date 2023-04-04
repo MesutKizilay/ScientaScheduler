@@ -4,9 +4,9 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace ScientaScheduler.Authentication.JWT
+namespace ScientaScheduler.Authentication.Authentication
 {
-    public class BuildToken
+    public class BuildToken : IAuthorization
     {
         IConfiguration Configuration;
         public BuildToken(IConfiguration configuration)

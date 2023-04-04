@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ScientaScheduler.Authentication.JWT;
+using ScientaScheduler.Authentication.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +13,24 @@ namespace ScientaScheduler.Authentication.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly BuildToken buildToken;
+        private readonly IAuthorization authorization;
 
-        public AuthController(BuildToken buildToken)
+        public AuthController(IAuthorization authorization)
         {
-            this.buildToken = buildToken;
+            this.authorization = authorization;
         }
 
         [HttpGet("[action]")]
         public IActionResult Login()
         {
             // TODO : Scienta üzerinden kullanıcı adı ve şifre doğrulaması yapıldıktan sonra kullanıcıya ait bilgiler ve yetkiler eklenerek token oluşturulacak
-            return Ok(buildToken.CreateToken());
+            return Ok(authorization.CreateToken());
         }
 
         [HttpGet("[action]")]
         public IActionResult ValidateToken([FromQuery] string token)
         {
-            if (buildToken.ValidateToken(token))
+            if (authorization.ValidateToken(token))
             {
                 return Ok("Token is valid");
             }

@@ -7,4 +7,4 @@
 03.04.2023 --> Create Token methodunda kullanýlan parametreler appsettings.json dosyasýndan okutulmalý
 03.04.2023 --> ScientaScheduler.Authentication projesine SeriLog ekleyelim, böylece bir loglama mekanizmasý da kurmuþ oluruz.
 03.04.2023 --> JWT token için Refresh mekanizmasý kurmak.
-03.04.2023 --> JWT Token Validation end point i yaratmak.
+03.04.2023 --> JWT Token Validation end point i yaratmak.D

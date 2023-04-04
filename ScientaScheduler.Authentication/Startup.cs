@@ -30,15 +30,17 @@ namespace ScientaScheduler.Authentication
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ScientaScheduler.Authentication", Version = "v1" });
             });
 
-
+            var issuer = Configuration["JwtConfig:Issuer"];
+            var audience = Configuration["JwtConfig:Audience"];
+            var signingKey = Configuration["JwtConfig:SigningKey"];
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = "http://localhost",
-                    ValidAudience = "http://localhost",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ScientaSchedulerAuthentication")),
+                    ValidIssuer = issuer,
+                    ValidAudience = audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace ScientaScheduler.Business.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController][Authorize]
     public class AuthController : ControllerBase
     {
-       
+        
         [HttpGet("[action]")]
         public IActionResult SignIn()
         {

@@ -5,14 +5,18 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler", "ScientaScheduler\ScientaScheduler.csproj", "{0BF468FB-1831-401C-92F2-B5630563AF37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientaScheduler.Authentication", "ScientaScheduler.Authentication\ScientaScheduler.Authentication.csproj", "{917AC1F6-1B4D-4FAB-ABD4-ED642C918AC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Authentication", "ScientaScheduler.Authentication\ScientaScheduler.Authentication.csproj", "{917AC1F6-1B4D-4FAB-ABD4-ED642C918AC9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project Logs", "Project Logs", "{37650B3F-2F97-4B13-9510-C85900EF8F4E}"
 	ProjectSection(SolutionItems) = preProject
 		ToDos List.txt = ToDos List.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientaScheduler.Business", "ScientaScheduler.Business\ScientaScheduler.Business.csproj", "{26624104-5CED-45F8-8596-9DF42055968D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Business", "ScientaScheduler.Business\ScientaScheduler.Business.csproj", "{26624104-5CED-45F8-8596-9DF42055968D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientaScheduler.Core", "ScientaScheduler.Core\ScientaScheduler.Core.csproj", "{5E3DBF2B-BCE4-4105-A2A7-F65139E907A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientaScheduler.BlazorApp", "ScientaScheduler.BlazorApp\ScientaScheduler.BlazorApp.csproj", "{C3926C8F-D86F-441B-8F80-0C23FDB2F002}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{26624104-5CED-45F8-8596-9DF42055968D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26624104-5CED-45F8-8596-9DF42055968D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26624104-5CED-45F8-8596-9DF42055968D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E3DBF2B-BCE4-4105-A2A7-F65139E907A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E3DBF2B-BCE4-4105-A2A7-F65139E907A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E3DBF2B-BCE4-4105-A2A7-F65139E907A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E3DBF2B-BCE4-4105-A2A7-F65139E907A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3926C8F-D86F-441B-8F80-0C23FDB2F002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3926C8F-D86F-441B-8F80-0C23FDB2F002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3926C8F-D86F-441B-8F80-0C23FDB2F002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3926C8F-D86F-441B-8F80-0C23FDB2F002}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,6 +17,12 @@ namespace ScientaScheduler.Business.Controllers
         public IActionResult SignIn()
         {
             return Ok("Başarıyla giriş yapıldı");
+        } 
+
+        [HttpGet("[action]")]
+        public IActionResult SignUp()
+        {
+            return Ok("Başarıyla kayıt yapıldı");
         }
     }
 }

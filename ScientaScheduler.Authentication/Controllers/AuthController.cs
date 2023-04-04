@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ScientaScheduler.Authentication.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ScientaScheduler.Authentication.Controllers
 {
@@ -40,11 +35,5 @@ namespace ScientaScheduler.Authentication.Controllers
             }
         }
 
-        [Authorize]
-        [HttpGet("[action]")]
-        public IActionResult SignIn()
-        {
-            return Ok();
-        }
     }
 }

@@ -7,17 +7,15 @@
 			   end-point e ihtiyaç var, bu end point username ve password bilgilerini alarak bize user bilgileri ve yetkilendirme bilgilerini geri 
 			   döndürecek. (Projenin ilerideki aþamasýnda gerçekleþtirilecek.)
 
-03.04.2023 --> Create Token methodunda kullanýlan parametreler appsettings.json dosyasýndan okutulmalý
+03.04.2023 --> Create Token methodunda kullanýlan parametreler appsettings.json dosyasýndan okutulmalý (04.03.2023 Tamamlandý)
 
 03.04.2023 --> ScientaScheduler.Authentication projesine SeriLog ekleyelim, böylece bir loglama mekanizmasý da kurmuþ oluruz.
-<<<<<<< HEAD
+
 03.04.2023 --> JWT token için Refresh mekanizmasý kurmak.
-03.04.2023 --> JWT Token Validation end point i yaratmak.D
-=======
+
+03.04.2023 --> JWT Token Validation end point i yaratmak. (04.03.2023 Tamamlandý.)
 
 03.04.2023 --> JWT token için Refresh mekanizmasý kurmak. (Projenin ilerideki aþamasýnda gerçekleþtirilecek.)
-
-03.04.2023 --> JWT Token Validation end point i yaratmak.
 
 04.04.2023 --> BlazorApp üzerinde Synfusion adaptasyonu.
 
@@ -25,4 +23,4 @@
 
 04.04.2023 --> Scienta üzerinde bulunan PYProjeler ve GGorevler tablolarýndan veri okumak ve oluþturulmak istenen Gantt þemasý için gerekli diðer öðelerin 
 			   belirlenmesi
->>>>>>> origin/master
+

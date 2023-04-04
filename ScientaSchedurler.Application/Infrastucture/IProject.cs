@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScientaScheduler.Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace ScientaSchedurler.Application.Infrastucture
     {
         void GetProjectList();
 
-        void GetProjectById();
+        void GetProjectById(int id);
 
-        void UpdateProject();
+        void UpdateProject(PYProje pYProje);
 
-        void DeleteProject();
+        void DeleteProject(PYProje pYProje);
     }
 }

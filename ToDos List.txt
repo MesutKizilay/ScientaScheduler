@@ -25,4 +25,3 @@
 			   belirlenmesi
 
 04.03.2023 --> ScientaScheduler üzerinde proje ekleme, düzenleme ve silme componentinin tanýmlanmasý.
-

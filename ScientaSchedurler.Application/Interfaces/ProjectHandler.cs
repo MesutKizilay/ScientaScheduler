@@ -1,27 +1,34 @@
-﻿using ScientaSchedurler.Application.Infrastucture;
+﻿using ScientaScheduler.Core.Entities.Concrete;
+using ScientaSchedurler.Application.DataAccess;
+using ScientaSchedurler.Application.Infrastucture;
 
 namespace ScientaSchedurler.Application.Interfaces
 {
     public class ProjectHandler : IProject
     {
-        public void DeleteProject()
+        IEntityRepository<PYProje> _entityRepository;
+        public ProjectHandler(IEntityRepository<PYProje> entityRepository)
         {
-            throw new System.NotImplementedException();
+            _entityRepository = entityRepository;
+        }
+        public void DeleteProject(PYProje pYProje)
+        {
+            _entityRepository.Delete(pYProje);
         }
 
-        public void GetProjectById()
+        public void GetProjectById(int id)
         {
-            throw new System.NotImplementedException();
+            _entityRepository.Get(p => p.ID == id);
         }
 
         public void GetProjectList()
         {
-            throw new System.NotImplementedException();
+            _entityRepository.GetAll();
         }
 
-        public void UpdateProject()
+        public void UpdateProject(PYProje pYProje)
         {
-            throw new System.NotImplementedException();
+            _entityRepository.Update(pYProje);
         }
     }
 }

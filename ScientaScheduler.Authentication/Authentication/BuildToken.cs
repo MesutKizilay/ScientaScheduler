@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ScientaScheduler.Authentication.JWT
 {
@@ -35,6 +32,31 @@ namespace ScientaScheduler.Authentication.JWT
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             return handler.WriteToken(token);
+        }
+
+        public bool ValidateToken(string token)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtConfig:SigningKey"]));
+            try
+            {
+                JwtSecurityTokenHandler handler = new();
+                handler.ValidateToken(token, new TokenValidationParameters()
+                {
+                    IssuerSigningKey = securityKey,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ValidAudience = Configuration["JwtConfig:Audience"],
+                    ValidateAudience = true,
+                    ValidIssuer = Configuration["JwtConfig:Issuer"],
+                    ValidateIssuer = true,
+                }, out SecurityToken validatedToken);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

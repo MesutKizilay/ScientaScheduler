@@ -13,18 +13,32 @@ namespace ScientaScheduler.Authentication.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        readonly BuildToken _buildToken;
+        private readonly BuildToken buildToken;
+
         public AuthController(BuildToken buildToken)
         {
-            _buildToken = buildToken;
+            this.buildToken = buildToken;
         }
-        
+
         [HttpGet("[action]")]
         public IActionResult Login()
         {
-            return Created("", _buildToken.CreateToken());
-        }        
-        
+            return Ok(buildToken.CreateToken());
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult ValidateToken([FromQuery] string token)
+        {
+            if (buildToken.ValidateToken(token))
+            {
+                return Ok("Token is valid");
+            }
+            else
+            {
+                return Unauthorized("Token is not valid");
+            }
+        }
+
         [Authorize]
         [HttpGet("[action]")]
         public IActionResult SignIn()

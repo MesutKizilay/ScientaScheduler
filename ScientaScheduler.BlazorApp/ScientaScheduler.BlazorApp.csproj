@@ -8,4 +8,8 @@
     <Folder Include="Components\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Blazor.Gantt" Version="20.1.0.61" />
+  </ItemGroup>
+
 </Project>

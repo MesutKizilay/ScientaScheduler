@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ScientaScheduler.Business.JWT;
+using ScientaSchedurler.Application.Infrastucture;
+using ScientaSchedurler.Application.Interfaces;
 using System;
 using System.Text;
 
@@ -48,6 +50,8 @@ namespace ScientaScheduler.Business
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
+            services.AddTransient<IProject, ProjectHandler>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

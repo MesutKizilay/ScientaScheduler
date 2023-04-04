@@ -11,7 +11,7 @@ namespace ScientaScheduler.Authentication.JWT
 {
     public class BuildToken
     {
-        IConfiguration Configuration
+        IConfiguration Configuration;
         public BuildToken(IConfiguration configuration)
         {
             Configuration = configuration;

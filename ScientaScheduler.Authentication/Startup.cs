@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ScientaScheduler.Authentication.JWT;
 using System;
 using System.Text;
 
@@ -23,6 +24,8 @@ namespace ScientaScheduler.Authentication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddSingleton<BuildToken>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

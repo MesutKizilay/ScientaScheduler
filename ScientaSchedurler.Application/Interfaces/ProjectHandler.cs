@@ -19,16 +19,16 @@ namespace ScientaSchedurler.Application.Interfaces
             _entityRepository.Delete(pYProje);
         }
 
-        public void GetProjectById(int id)
+        public PYProje GetProjectById(int id)
         {
-            _entityRepository.Get(p => p.ID == id);
+            return _entityRepository.Get(p => p.ID == id);
         }
 
         public List<PYProje> GetProjectList()
         {
-            List<PYProje> projects = new();
-            _entityRepository.GetAll();
-            return projects;
+            //List<PYProje> projects = new();
+            return _entityRepository.GetAll();
+            //return projects;
         }
 
         public void UpdateProject(PYProje pYProje)

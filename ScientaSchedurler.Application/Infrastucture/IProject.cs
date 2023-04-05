@@ -7,7 +7,7 @@ namespace ScientaSchedurler.Application.Infrastucture
     {
         List<PYProje> GetProjectList();
 
-        void GetProjectById(int id);
+        PYProje GetProjectById(int id);
 
         void UpdateProject(PYProje pYProje);
 

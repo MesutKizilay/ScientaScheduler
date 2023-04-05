@@ -35,5 +35,10 @@ namespace ScientaSchedurler.Application.Interfaces
         {
             _entityRepository.Update(pYProje);
         }
+
+        public void AddProject(PYProje pYProje)
+        {
+            _entityRepository.Add(pYProje);
+        }
     }
 }

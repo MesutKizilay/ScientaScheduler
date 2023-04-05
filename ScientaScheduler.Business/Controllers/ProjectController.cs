@@ -21,7 +21,34 @@ namespace ScientaScheduler.Business.Controllers
         {
             List<PYProje> projects = new();
             projects = project.GetProjectList();
-            return Ok(projects);            
+            return Ok(projects);
+        }
+
+        [HttpPost]
+        public IActionResult AddProject(PYProje pYProje)
+        {
+            project.AddProject(pYProje);
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteProject(PYProje pYProje)
+        {
+            project.DeleteProject(pYProje);
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult GetProjectById(int id)
+        {
+            return Ok(project.GetProjectById(id));
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProject(PYProje pYProje)
+        {
+            project.UpdateProject(pYProje);
+            return Ok();
         }
     }
 }

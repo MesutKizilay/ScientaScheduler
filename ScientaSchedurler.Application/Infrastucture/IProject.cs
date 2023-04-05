@@ -12,5 +12,6 @@ namespace ScientaSchedurler.Application.Infrastucture
         void UpdateProject(PYProje pYProje);
 
         void DeleteProject(PYProje pYProje);
+        void AddProject(PYProje pYProje)
     }
 }

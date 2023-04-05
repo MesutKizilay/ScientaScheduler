@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ScinetaScheduler.Blazor.Library\ScinetaScheduler.Blazor.Library.csproj" />
+    <ProjectReference Include="..\ScinetaScheduler.Blazor.Library\ScientaScheduler.Blazor.Library.csproj" />
   </ItemGroup>
 
 </Project>

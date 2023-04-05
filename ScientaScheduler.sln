@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.33516.290
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33423.256
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler", "ScientaScheduler\ScientaScheduler.csproj", "{0BF468FB-1831-401C-92F2-B5630563AF37}"
 EndProject
@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaSchedurler.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.BlazorApp", "ScientaScheduler.BlazorApp\ScientaScheduler.BlazorApp.csproj", "{37148F5E-0BD0-425A-9A22-78EC72514E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScinetaScheduler.Blazor.Library", "ScinetaScheduler.Blazor.Library\ScinetaScheduler.Blazor.Library.csproj", "{24044C08-9FC0-47BC-B62C-4CBD7B08CEC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Blazor.Library", "ScinetaScheduler.Blazor.Library\ScientaScheduler.Blazor.Library.csproj", "{24044C08-9FC0-47BC-B62C-4CBD7B08CEC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

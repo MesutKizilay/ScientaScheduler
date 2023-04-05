@@ -1,5 +1,7 @@
 ﻿using ScientaScheduler.Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ScientaSchedurler.Application.Infrastucture
 {

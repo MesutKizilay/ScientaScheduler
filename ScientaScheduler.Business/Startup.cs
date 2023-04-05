@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ScientaScheduler.Business.JWT;
+using ScientaSchedurler.Application.DataAccess;
+using ScientaSchedurler.Application.DataAccess.EntityFramework;
 using ScientaSchedurler.Application.Infrastucture;
 using ScientaSchedurler.Application.Interfaces;
 using System;
@@ -52,6 +54,7 @@ namespace ScientaScheduler.Business
             });
 
             services.AddTransient<IProject, ProjectHandler>();
+            services.AddSingleton<IEntityRepository<TEntity>, EfEntityRepositoryBase<TEntity>>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

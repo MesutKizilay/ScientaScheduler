@@ -10,6 +10,6 @@ namespace ScientaScheduler.Core.Entities.Concrete
         public string ProjeAdi { get; set; }
         public DateTime? PlanlananBaslamaTarihi { get; set; }
         public DateTime? PlanlananBitisTarihi { get; set; }
-        public Int16? IsinSuresi { get; set; }
+        public short? IsinSuresi { get; set; }
     }
 }

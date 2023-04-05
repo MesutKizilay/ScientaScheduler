@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using ScientaScheduler.Blazor.Library.DTOs;
 using ScientaScheduler.BlazorApp.Services.Interface;
-using ScinetaScheduler.Blazor.Library.DTOs;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;

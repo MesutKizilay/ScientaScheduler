@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScinetaScheduler.Blazor.Library.DTOs
+namespace ScientaScheduler.Blazor.Library.DTOs
 {
     public class ProjectDto
     {

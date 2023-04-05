@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ScientaScheduler.Business.JWT;
 using ScientaSchedurler.Application.DataAccess;
 using ScientaSchedurler.Application.DataAccess.EntityFramework;
 using ScientaSchedurler.Application.Infrastucture;
@@ -14,6 +13,7 @@ using ScientaSchedurler.Application.Interfaces;
 using System;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using ScientaScheduler.Business.Authentication;
 
 namespace ScientaScheduler.Business
 {

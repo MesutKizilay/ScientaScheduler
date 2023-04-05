@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ScientaScheduler.Business.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ProjectController : ControllerBase
     {
@@ -16,7 +16,8 @@ namespace ScientaScheduler.Business.Controllers
             this.project = project;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
+        [Route("GetProjectList")]
         public IActionResult GetProjectList()
         {
             List<PYProje> projects = new();
@@ -24,27 +25,31 @@ namespace ScientaScheduler.Business.Controllers
             return Ok(projects);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost]
+        [Route("AddProject")]
         public IActionResult AddProject(PYProje pYProje)
         {
             project.AddProject(pYProje);
             return Ok();
         }
 
-        [HttpPost("[action]")]
+        [HttpDelete]
+        [Route("DeleteProject")]
         public IActionResult DeleteProject(PYProje pYProje)
         {
             project.DeleteProject(pYProje);
             return Ok();
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
+        [Route("GetProjectById")]
         public IActionResult GetProjectById(int id)
         {
             return Ok(project.GetProjectById(id));
         }
 
-        [HttpPost("[action]")]
+        [HttpPut]
+        [Route("UpdateProject")]
         public IActionResult UpdateProject(PYProje pYProje)
         {
             project.UpdateProject(pYProje);

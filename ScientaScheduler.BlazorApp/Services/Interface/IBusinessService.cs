@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScinetaScheduler.Blazor.Library.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,6 @@ namespace ScientaScheduler.BlazorApp.Services.Interface
 {
     public interface IBusinessService
     {
-        
+        Task<ProjectDto> GetProjeById();
     }
 }

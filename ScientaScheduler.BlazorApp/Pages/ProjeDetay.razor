@@ -1,5 +1,14 @@
-﻿<h3>Component</h3>
+﻿@page "/projedetay"
+@using ScientaScheduler.BlazorApp.Services.Interface;
+@inject IBusinessService businessService
+
+
+<h3>Component</h3>
 
 @code {
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await businessService.GetProjeById();
         
+    }
 }

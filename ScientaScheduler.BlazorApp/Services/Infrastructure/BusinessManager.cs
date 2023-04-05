@@ -15,10 +15,10 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
 
         private readonly IConfiguration configuration;
 
-        public BusinessManager(HttpClient httpClient, IConfiguration configuration)
+        public BusinessManager(IConfiguration configuration)
         {
             this.configuration = configuration;
-            httpClient = new();
+            httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(configuration["SchedulerBusinessSettings:BaseUrl"]);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

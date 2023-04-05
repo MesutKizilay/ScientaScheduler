@@ -6,12 +6,12 @@ namespace ScientaSchedurler.Application.DataAccess.EntityFramework
 {
     public class ScientaContext : DbContext
     {
-        private readonly IConfiguration configuration;
+        //private readonly IConfiguration configuration;
 
-        public ScientaContext(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
+        //public ScientaContext(IConfiguration configuration)
+        //{
+        //    this.configuration = configuration;
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

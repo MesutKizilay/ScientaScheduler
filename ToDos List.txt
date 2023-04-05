@@ -11,8 +11,6 @@
 
 03.04.2023 --> ScientaScheduler.Authentication projesine SeriLog ekleyelim, böylece bir loglama mekanizmasý da kurmuþ oluruz.
 
-03.04.2023 --> JWT token için Refresh mekanizmasý kurmak.
-
 03.04.2023 --> JWT Token Validation end point i yaratmak. (04.03.2023 Tamamlandý.)
 
 03.04.2023 --> JWT token için Refresh mekanizmasý kurmak. (Projenin ilerideki aþamasýnda gerçekleþtirilecek.)
@@ -25,3 +23,5 @@
 			   belirlenmesi
 
 04.03.2023 --> ScientaScheduler üzerinde proje ekleme, düzenleme ve silme componentinin tanýmlanmasý.
+
+05.03.2023 --> Business içinde ProjectController adaptasyonu.

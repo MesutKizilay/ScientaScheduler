@@ -13,6 +13,7 @@ using ScientaSchedurler.Application.Infrastucture;
 using ScientaSchedurler.Application.Interfaces;
 using System;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace ScientaScheduler.Business
 {
@@ -54,7 +55,7 @@ namespace ScientaScheduler.Business
             });
 
             services.AddTransient<IProject, ProjectHandler>();
-            services.AddSingleton<IEntityRepository<TEntity>, EfEntityRepositoryBase<TEntity>>();
+            services.AddSingleton(typeof(IEntityRepository<>), typeof(EfEntityRepositoryBase<>));
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

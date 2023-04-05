@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ScientaScheduler.Blazor.Library
+namespace ScinetaScheduler.Blazor.Library.DTOs
 {
     public class ProjectDto
     {

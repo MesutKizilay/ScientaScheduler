@@ -5,15 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\Interface\IProjectService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Syncfusion.Blazor" Version="20.1.0.61" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ScinetaScheduler.Blazor.Library\ScientaScheduler.Blazor.Library.csproj" />
+    <ProjectReference Include="..\ScinetaScheduler.Blazor.Library\ScinetaScheduler.Blazor.Library.csproj" />
   </ItemGroup>
 
 </Project>

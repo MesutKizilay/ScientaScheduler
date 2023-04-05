@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using ScientaScheduler.Blazor.Library;
 using ScientaScheduler.BlazorApp.Services.Interface;
+using ScinetaScheduler.Blazor.Library.DTOs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -21,7 +19,7 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
         {
             this.configuration = configuration;
             httpClient = new();
-            httpClient.BaseAddress = new Uri(configuration["SchedulerBusinessSettings:BaseUrl"]); 
+            httpClient.BaseAddress = new Uri(configuration["SchedulerBusinessSettings:BaseUrl"]);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

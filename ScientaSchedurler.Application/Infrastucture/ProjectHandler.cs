@@ -1,9 +1,9 @@
 ﻿using ScientaScheduler.Core.Entities.Concrete;
 using ScientaSchedurler.Application.DataAccess;
-using ScientaSchedurler.Application.Infrastucture;
+using ScientaSchedurler.Application.Interfaces;
 using System.Collections.Generic;
 
-namespace ScientaSchedurler.Application.Interfaces
+namespace ScientaSchedurler.Application.Infrastucture
 {
     public class ProjectHandler : IProject
     {

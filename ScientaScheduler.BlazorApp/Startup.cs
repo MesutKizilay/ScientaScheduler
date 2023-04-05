@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Syncfusion.Blazor;
+using ScientaScheduler.BlazorApp.Services.Interface;
+using ScientaScheduler.BlazorApp.Services.Infrastructure;
 
 namespace ScientaScheduler.BlazorApp
 {
@@ -30,6 +32,7 @@ namespace ScientaScheduler.BlazorApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<IBusinessService, BusinessManager>();
             services.AddSyncfusionBlazor();
         }
 

@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaSchedurler.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.BlazorApp", "ScientaScheduler.BlazorApp\ScientaScheduler.BlazorApp.csproj", "{37148F5E-0BD0-425A-9A22-78EC72514E42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientaScheduler.Blazor.Library", "ScinetaScheduler.Blazor.Library\ScientaScheduler.Blazor.Library.csproj", "{BA0D2DE7-7E6A-4303-BC56-F1D7A1EE08C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{37148F5E-0BD0-425A-9A22-78EC72514E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37148F5E-0BD0-425A-9A22-78EC72514E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37148F5E-0BD0-425A-9A22-78EC72514E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA0D2DE7-7E6A-4303-BC56-F1D7A1EE08C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0D2DE7-7E6A-4303-BC56-F1D7A1EE08C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0D2DE7-7E6A-4303-BC56-F1D7A1EE08C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0D2DE7-7E6A-4303-BC56-F1D7A1EE08C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

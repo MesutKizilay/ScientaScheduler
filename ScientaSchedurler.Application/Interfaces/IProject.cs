@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace ScientaSchedurler.Application.Infrastucture
+namespace ScientaSchedurler.Application.Interfaces
 {
     public interface IProject
     {

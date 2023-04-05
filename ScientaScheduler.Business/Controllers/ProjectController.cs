@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScientaScheduler.Core.Entities.Concrete;
-using ScientaSchedurler.Application.Infrastucture;
+using ScientaSchedurler.Application.Interfaces;
 using System.Collections.Generic;
 
 namespace ScientaScheduler.Business.Controllers

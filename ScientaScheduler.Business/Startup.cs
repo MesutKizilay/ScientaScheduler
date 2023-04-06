@@ -1,19 +1,21 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ScientaScheduler.Business.Authentication;
+using ScientaScheduler.Business.Hubs;
 using ScientaSchedurler.Application.DataAccess;
 using ScientaSchedurler.Application.DataAccess.EntityFramework;
 using ScientaSchedurler.Application.Infrastucture;
 using ScientaSchedurler.Application.Interfaces;
 using System;
+using System.Linq;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
-using ScientaScheduler.Business.Authentication;
 
 namespace ScientaScheduler.Business
 {
@@ -29,6 +31,12 @@ namespace ScientaScheduler.Business
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+            services.AddResponseCompression(options =>
+            {
+                options.MimeTypes = ResponseCompressionDefaults
+                .MimeTypes.Concat(new[] { "application/octet-stream" });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -37,7 +45,7 @@ namespace ScientaScheduler.Business
             });
 
             var _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-            
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
@@ -67,13 +75,16 @@ namespace ScientaScheduler.Business
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ScientaScheduler.Business v1"));
             }
 
+            app.UseResponseCompression();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chathub");
             });
         }
     }

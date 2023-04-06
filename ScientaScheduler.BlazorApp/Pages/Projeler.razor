@@ -1,0 +1,18 @@
+﻿@page "/projeler"
+@inject IBusinessService businessService
+
+
+<SfGrid DataSource="@projectDtos"
+        >
+
+</SfGrid>
+
+@code {
+    public List<ProjectDto> projectDtos = new List<ProjectDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await businessService.GetProjectList();
+        projectDtos = result;
+    }
+}

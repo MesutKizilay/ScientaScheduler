@@ -1,5 +1,6 @@
 ﻿@page "/projeler"
 @inject IBusinessService businessService
+@inject NavigationManager navigationManager
 
 <SfGrid DataSource="@projectDtos" AllowPaging="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
@@ -33,7 +34,7 @@
 @code {
     public ProjectDto projectDto { get; set; }
     public List<ProjectDto> projectDtos = new List<ProjectDto>();
-
+    public ProjectDto RowDetails { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -43,7 +44,8 @@
 
     public void OnCommandClicked(CommandClickEventArgs<ProjectDto> args)
     {
-        // Perform required operations here
+        RowDetails = args.RowData;
+        navigationManager.NavigateTo($"projedetay/{args.RowData.ID}");
     }
 
 }

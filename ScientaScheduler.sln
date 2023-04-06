@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Authentica
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project Logs", "Project Logs", "{37650B3F-2F97-4B13-9510-C85900EF8F4E}"
 	ProjectSection(SolutionItems) = preProject
+		C:\Users\g.vardal\Desktop\ScientaScheduler.Blazor.jpg = C:\Users\g.vardal\Desktop\ScientaScheduler.Blazor.jpg
 		ToDos List.txt = ToDos List.txt
 	EndProjectSection
 EndProject
@@ -20,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaSchedurler.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.BlazorApp", "ScientaScheduler.BlazorApp\ScientaScheduler.BlazorApp.csproj", "{37148F5E-0BD0-425A-9A22-78EC72514E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientaScheduler.Blazor.Library", "ScinetaScheduler.Blazor.Library\ScientaScheduler.Blazor.Library.csproj", "{24044C08-9FC0-47BC-B62C-4CBD7B08CEC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Blazor.Library", "ScinetaScheduler.Blazor.Library\ScientaScheduler.Blazor.Library.csproj", "{24044C08-9FC0-47BC-B62C-4CBD7B08CEC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

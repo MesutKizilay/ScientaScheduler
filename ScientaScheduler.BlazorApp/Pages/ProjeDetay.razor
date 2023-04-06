@@ -1,6 +1,4 @@
 ﻿@page "/projedetay"
-@using ScientaScheduler.Blazor.Library.DTOs;
-@using ScientaScheduler.BlazorApp.Services.Interface;
 @inject IBusinessService businessService
 
 
@@ -12,8 +10,7 @@
             Proje ID
         </label>
         <div>
-            <SfNumericTextBox @bind-Value="projectDto.ID"></SfNumericTextBox>            
-            @*<InputNumber class="form-control" @bind-Value="projectDto.ID" />*@
+            <SfTextBox Value="@projectDto.ID.ToString()"></SfTextBox>
         </div>
     </div>
     <div class="form-group row">

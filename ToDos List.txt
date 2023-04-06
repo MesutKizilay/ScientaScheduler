@@ -1,11 +1,13 @@
-03.04.2023 --> Solution içine bir webAPI projesi daha oluþturup, bunu Business için kullanmamýz gerekir, senin oluþturmuþ olduðun ScientaScheduler projesi 
-			   son kullanýcýnýn gördüðü proje aslýnda (03.04.2023 Tamamlandý)
+03.04.2023 --> Solution içine bir webAPI projesi daha oluþturup, bunu Business için kullanmamýz gerekir, senin oluþturmuþ 
+               olduðun ScientaScheduler projesi son kullanýcýnýn gördüðü proje aslýnda (03.04.2023 Tamamlandý)
 
-03.04.2023 --> Business katmaný içinde bir controller oluþturup bunu Authorize olarak belirtip onu jwt token ile çalýþtýrýlmasý (04.03.2023 Tamamlandý.)
+03.04.2023 --> Business katmaný içinde bir controller oluþturup bunu Authorize olarak belirtip onu jwt token 
+               ile çalýþtýrýlmasý (04.03.2023 Tamamlandý.)
 
-03.04.2023 --> JWT token oluþturulmasý sýrasýnda Scienta dan gelen user ve yetki bilgileri de token içine yerkeltirilecek. Bunun için Scienta User Info
-			   end-point e ihtiyaç var, bu end point username ve password bilgilerini alarak bize user bilgileri ve yetkilendirme bilgilerini geri 
-			   döndürecek. (Projenin ilerideki aþamasýnda gerçekleþtirilecek.)
+03.04.2023 --> JWT token oluþturulmasý sýrasýnda Scienta dan gelen user ve yetki bilgileri de token içine yerleþtirilecek. 
+               Bunun için Scienta User Info end-point e ihtiyaç var, bu end point username ve password bilgilerini 
+               alarak bize user bilgileri ve yetkilendirme bilgilerini geri döndürecek. 
+               (Projenin ilerideki aþamasýnda gerçekleþtirilecek.)
 
 03.04.2023 --> Create Token methodunda kullanýlan parametreler appsettings.json dosyasýndan okutulmalý (04.03.2023 Tamamlandý)
 
@@ -15,13 +17,21 @@
 
 03.04.2023 --> JWT token için Refresh mekanizmasý kurmak. (Projenin ilerideki aþamasýnda gerçekleþtirilecek.)
 
-04.04.2023 --> BlazorApp üzerinde Synfusion adaptasyonu.
+04.04.2023 --> BlazorApp üzerinde Synfusion adaptasyonu. (05.04.2023 Tamamlandý.)
 
 04.04.2023 --> BlazorApp üzerinde Synfusion Gantt component i geliþtirmek.
 
-04.04.2023 --> Scienta üzerinde bulunan PYProjeler ve GGorevler tablolarýndan veri okumak ve oluþturulmak istenen Gantt þemasý için gerekli diðer öðelerin 
-			   belirlenmesi
+04.04.2023 --> Scienta üzerinde bulunan PYProjeler ve GGorevler tablolarýndan veri okumak ve oluþturulmak istenen 
+               Gantt þemasý için gerekli diðer öðelerin belirlenmesi
 
 04.03.2023 --> ScientaScheduler üzerinde proje ekleme, düzenleme ve silme componentinin tanýmlanmasý.
 
-05.03.2023 --> Business içinde ProjectController adaptasyonu.
+05.03.2023 --> Business içinde ProjectController adaptasyonu. (05.04.2023 Project List ve Project by Id tamamlandý.)
+
+05.03.2023 --> Blazor projesi altýnda proje bilgilerinin update edilmesi ve yeni proje oluþturulmasý.
+
+05.03.2023 --> Blazor Chat componentinin oluþturulmasý.
+
+05.03.2023 --> Docker Container oluþturup tüm projenin birbiri ile docker üzerinden haberleþmesini saðlamak.
+
+05.03.2023 --> Api Gateway Ocelot kurulumunun yapýlmasý. 

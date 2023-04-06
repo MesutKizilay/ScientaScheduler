@@ -17,7 +17,7 @@
 
 03.04.2023 --> JWT token için Refresh mekanizmasý kurmak. (Projenin ilerideki aþamasýnda gerçekleþtirilecek.)
 
-04.04.2023 --> BlazorApp üzerinde Synfusion adaptasyonu. (05.04.2023 Tamamlandý.)
+04.04.2023 --> BlazorApp üzerinde Synfusion adaptasyonu. ( 05.04.2023 Tamamlandý.)
 
 04.04.2023 --> BlazorApp üzerinde Synfusion Gantt component i geliþtirmek.
 
@@ -34,4 +34,4 @@
 
 05.03.2023 --> Docker Container oluþturup tüm projenin birbiri ile docker üzerinden haberleþmesini saðlamak.
 
-05.03.2023 --> Api Gateway Ocelot kurulumunun yapýlmasý. 
+05.03.2023 --> Api Gateway Ocelot kurulumunun yapýlmasý.

@@ -2,17 +2,28 @@
 @inject IBusinessService businessService
 
 
-<SfGrid DataSource="@projectDtos"
-        >
+<SfGrid @ref="DefaultGrid" DataSource="@projectDtos" AllowPaging="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridSelectionSettings Mode=SelectionMode.Row></GridSelectionSettings>
 
 </SfGrid>
 
+<SfButton OnClick="SelectedRowCellIndex" CssClass="e-primary" IsPrimary="true" Content="edit"></SfButton>
+
 @code {
+    private SfGrid<ProjectDto> DefaultGrid;
+
     public List<ProjectDto> projectDtos = new List<ProjectDto>();
+
 
     protected override async Task OnInitializedAsync()
     {
         var result = await businessService.GetProjectList();
         projectDtos = result;
+    }
+
+    public async Task SelectedRowCellIndex()
+    {
+        var value = await this.DefaultGrid.GetSelectedRowCellIndexes();
     }
 }

@@ -31,7 +31,7 @@ else
 
     private async Task Connect()
     {
-        hubConnection = new HubConnectionBuilder().WithUrl("http://localhost:7000/chathub").Build();
+        hubConnection = new HubConnectionBuilder().WithUrl(configuration["SchedulerBusinessSettings:BaseUrl"] + $"/chathub?username={username}").Build();
         hubConnection.On<string, string>("ReceivedChatMessage",(user,message) =>
         {
             var msg = $"{(string.IsNullOrEmpty(user) ? "" : user + ": ")} {message}";

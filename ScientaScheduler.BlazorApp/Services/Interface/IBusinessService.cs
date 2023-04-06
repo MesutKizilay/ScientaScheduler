@@ -9,6 +9,7 @@ namespace ScientaScheduler.BlazorApp.Services.Interface
 {
     public interface IBusinessService
     {
-        Task<ProjectDto> GetProjeById();
+        Task<ProjectDto> GetProjectById();
+        Task<List<ProjectDto>> GetProjectList();
     }
 }

@@ -76,7 +76,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await businessService.GetProjectById();
+        var result = await businessService.GetProjectById(1);
         projectDto = result;
     }
 

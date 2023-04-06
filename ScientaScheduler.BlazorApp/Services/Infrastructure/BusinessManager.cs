@@ -25,14 +25,14 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<ProjectDto> GetProjectById()
+        public async Task<ProjectDto> GetProjectById(int id)
         {
             ProjectDto proje = new();
 
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            using HttpResponseMessage response = await httpClient.GetAsync("/Project/GetProjectById?id=1");
+            using HttpResponseMessage response = await httpClient.GetAsync($"/Project/GetProjectById?id={id}");
             if (response.IsSuccessStatusCode)
             {
                 var contentString = await response.Content.ReadAsStringAsync();

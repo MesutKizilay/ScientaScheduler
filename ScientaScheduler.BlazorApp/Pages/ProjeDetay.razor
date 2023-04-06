@@ -1,6 +1,5 @@
-﻿@page "/projedetay"
+﻿@page "/projedetay/{id:int}"
 @inject IBusinessService businessService
-
 
 <EditForm Model="@projectDto">
     <h3>Proje Detay</h3>
@@ -11,7 +10,7 @@
             Proje ID
         </label>
         <div>
-            <SfNumericTextBox @bind-Value="projectDto.ID"></SfNumericTextBox>            
+            <SfNumericTextBox @bind-Value="projectDto.ID"></SfNumericTextBox>
             @*<InputNumber class="form-control" @bind-Value="projectDto.ID" />*@
         </div>
     </div>
@@ -56,14 +55,14 @@
         <th>Proje Kodu</th>
         <th>Proje Başlama Tarihi </th>
         <th>Proje Bitiş Tarihi</th>
-    </tr> 
-    <tr> 
+    </tr>
+    <tr>
         <td>@projectDto.ID</td>
         <td>@projectDto.ProjeAdi</td>
         <td>@projectDto.ProjeKodu</td>
         <td>@projectDto.PlanlananBaslamaTarihi</td>
         <td>@projectDto.PlanlananBitisTarihi</td>
-    </tr>    
+    </tr>
 </table>
 
 <style>
@@ -74,11 +73,15 @@
 @code {
     public ProjectDto projectDto = new ProjectDto();
 
+    [Parameter]
+    public int id { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
-        var result = await businessService.GetProjectById(1);
+        var result = await businessService.GetProjectById(id);
         projectDto = result;
     }
+
 
     //<div class="form-group row">
     //    <label for="ID" class="col-sm-2 col-form-label">

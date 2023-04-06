@@ -1,18 +1,37 @@
 ﻿@page "/projeler"
 @inject IBusinessService businessService
 
-
-<SfGrid @ref="DefaultGrid" DataSource="@projectDtos" AllowPaging="true">
+<SfGrid DataSource="@projectDtos" AllowPaging="true">
     <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridEvents CommandClicked="OnCommandClicked" TValue="ProjectDto"></GridEvents>
     <GridSelectionSettings Mode=SelectionMode.Row></GridSelectionSettings>
+
+
+
+    <GridColumns>
+        <GridColumn Field=@nameof(projectDto.ID) HeaderText="ID" IsPrimaryKey="true" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+        <GridColumn Field=@nameof(projectDto.ProjeAdi) HeaderText="Proje Adı" Width="120"></GridColumn>
+        <GridColumn Field=@nameof(projectDto.PlanlananBaslamaTarihi) HeaderText="Başlama Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="130"></GridColumn>
+        <GridColumn Field=@nameof(projectDto.PlanlananBitisTarihi) HeaderText="Bitiş Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="130"></GridColumn>
+        <GridColumn Field=@nameof(projectDto.IsinSuresi) HeaderText="Süreç" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+        <GridColumn HeaderText="Details" Width="100">
+            <GridCommandColumns>
+                <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" })"></GridCommandColumn>
+                @*<GridCommandColumn Type="CommandButtonType.Delete" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-delete", CssClass = "e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Type="CommandButtonType.Save" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-update", CssClass = "e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Type="CommandButtonType.Cancel" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-cancel-icon", CssClass = "e-flat" })"></GridCommandColumn>*@
+            </GridCommandColumns>
+        </GridColumn>
+    </GridColumns>
+
+
 
 </SfGrid>
 
-<SfButton OnClick="SelectedRowCellIndex" CssClass="e-primary" IsPrimary="true" Content="edit"></SfButton>
+
 
 @code {
-    private SfGrid<ProjectDto> DefaultGrid;
-
+    public ProjectDto projectDto { get; set; }
     public List<ProjectDto> projectDtos = new List<ProjectDto>();
 
 
@@ -22,8 +41,9 @@
         projectDtos = result;
     }
 
-    public async Task SelectedRowCellIndex()
+    public void OnCommandClicked(CommandClickEventArgs<ProjectDto> args)
     {
-        var value = await this.DefaultGrid.GetSelectedRowCellIndexes();
+        // Perform required operations here
     }
+
 }

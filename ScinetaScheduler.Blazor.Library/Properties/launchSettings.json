@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "ScientaScheduler.Blazor.Library": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50370;http://localhost:50374"
+    }
+  }
+}

@@ -8,7 +8,7 @@ namespace ScientaScheduler.Business.Hubs
     {
         public override async Task OnConnectedAsync()
         {
-            await SendMessage("", "User Connected");
+            await SendChatMessage("", "User Connected");
             await base.OnConnectedAsync();
         }
 
@@ -17,9 +17,9 @@ namespace ScientaScheduler.Business.Hubs
             return base.OnDisconnectedAsync(exception);
         }
 
-        public async Task SendMessage(string user, string message)
+        public async Task SendChatMessage(string user, string message)
         {
-            await Clients.All.SendAsync("ReceivedMessage",user, message);
+            await Clients.All.SendAsync("ReceivedChatMessage",user, message);
         }
     }
 }

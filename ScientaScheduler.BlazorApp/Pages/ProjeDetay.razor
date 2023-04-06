@@ -5,12 +5,14 @@
 <EditForm Model="@projectDto">
     <h3>Proje Detay</h3>
     <hr />
+
     <div class="form-group row">
         <label for="ID" class="col-sm-2 col-form-label">
             Proje ID
         </label>
         <div>
-            <SfTextBox Value="@projectDto.ID.ToString()"></SfTextBox>
+            <SfNumericTextBox @bind-Value="projectDto.ID"></SfNumericTextBox>            
+            @*<InputNumber class="form-control" @bind-Value="projectDto.ID" />*@
         </div>
     </div>
     <div class="form-group row">
@@ -18,36 +20,57 @@
             Proje Adı
         </label>
         <div>
-            <InputText class="form-control" @bind-Value="projectDto.ProjeAdi" />
+            <SfTextBox class="form-control" @bind-Value="projectDto.ProjeAdi" />
         </div>
     </div>
     <div class="form-group row">
-        <label for="ID" class="col-sm-2 col-form-label">
+        <label class="col-sm-2 col-form-label">
             Proje Kodu
         </label>
         <div>
-            <InputText class="form-control" @bind-Value="projectDto.ProjeKodu" />
+            <SfTextBox class="form-control" @bind-Value="projectDto.ProjeKodu" />
         </div>
     </div>
     <div class="form-group row">
-        <label for="ID" class="col-sm-2 col-form-label">
+        <label class="col-sm-2 col-form-label">
             Proje Başlama Tarihi
         </label>
         <div>
-            <InputDate class="form-control" @bind-Value="projectDto.PlanlananBaslamaTarihi" />
+            <SfDatePicker class="form-control" @bind-Value="projectDto.PlanlananBaslamaTarihi" />
         </div>
     </div>
     <div class="form-group row">
-        <label for="ID" class="col-sm-2 col-form-label">
+        <label class="col-sm-2 col-form-label">
             Proje Bitiş Tarihi
         </label>
         <div>
-            <InputDate class="form-control" @bind-Value="projectDto.PlanlananBitisTarihi" />
+            <SfDatePicker class="form-control" @bind-Value="projectDto.PlanlananBitisTarihi" />
         </div>
     </div>
 </EditForm>
 
+<table style="width:100%">
+    <tr>
+        <th>Proje Id</th>
+        <th>Proje Adı</th>
+        <th>Proje Kodu</th>
+        <th>Proje Başlama Tarihi </th>
+        <th>Proje Bitiş Tarihi</th>
+    </tr> 
+    <tr> 
+        <td>@projectDto.ID</td>
+        <td>@projectDto.ProjeAdi</td>
+        <td>@projectDto.ProjeKodu</td>
+        <td>@projectDto.PlanlananBaslamaTarihi</td>
+        <td>@projectDto.PlanlananBitisTarihi</td>
+    </tr>    
+</table>
 
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
 @code {
     public ProjectDto projectDto = new ProjectDto();
 
@@ -56,4 +79,14 @@
         var result = await businessService.GetProjeById();
         projectDto = result;
     }
+
+    //<div class="form-group row">
+    //    <label for="ID" class="col-sm-2 col-form-label">
+    //        Proje ID
+    //    </label>
+    //    <div>
+    //        <SfNumericTextBox @bind-Value="projectDto.ID"></SfNumericTextBox>
+    //        @*<InputNumber class="form-control" @bind-Value="projectDto.ID" />*@
+    //    </div>
+    //</div>
 }

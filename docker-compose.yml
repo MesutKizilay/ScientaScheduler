@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  scientascheduler.blazorapp:
+    image: ${DOCKER_REGISTRY-}scientaschedulerblazorapp
+    build:
+      context: .
+      dockerfile: ScientaScheduler.BlazorApp/Dockerfile

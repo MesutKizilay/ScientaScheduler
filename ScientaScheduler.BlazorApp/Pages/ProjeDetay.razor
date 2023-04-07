@@ -10,7 +10,7 @@
             Proje ID
         </label>
         <div>
-            <SfNumericTextBox @bind-Value="projectDto.ID"></SfNumericTextBox>
+            <SfTextBox Value="@projectDto.ID.ToString()"></SfTextBox>
             @*<InputNumber class="form-control" @bind-Value="projectDto.ID" />*@
         </div>
     </div>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33423.256
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler", "ScientaScheduler\ScientaScheduler.csproj", "{0BF468FB-1831-401C-92F2-B5630563AF37}"
 EndProject
@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientaScheduler.Authentica
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project Logs", "Project Logs", "{37650B3F-2F97-4B13-9510-C85900EF8F4E}"
 	ProjectSection(SolutionItems) = preProject
+		C:\Users\g.vardal\Desktop\Scheduler-Görevler.png = C:\Users\g.vardal\Desktop\Scheduler-Görevler.png
 		C:\Users\g.vardal\Desktop\ScientaScheduler.Blazor.jpg = C:\Users\g.vardal\Desktop\ScientaScheduler.Blazor.jpg
 		ToDos List.txt = ToDos List.txt
 	EndProjectSection

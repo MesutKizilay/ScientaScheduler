@@ -14,20 +14,44 @@
 }
 else
 {
-    <textarea  style="width:100%; height:500px">
+    <textarea  style="width:100%; height:500px" readonly>
         @messages
     </textarea>
     <div class="input-group">
-        <input @bind-value="message" @bind-value:event="oninput" @onkeyup="HandleInput" class="form-control">
-        <button class="btn btn-primary form-group-append" @onclick="Send" disabled="@(!IsConnected)">Send</button>
+        <SfTextBox @ref="@TextBoxSendObj" Created="@OnCreateSend" Enabled="@IsConnected" @bind-Value="message" @onkeyup='@(e => HandleInput(e))'></SfTextBox>
     </div>
 }
+
+<style>
+    .e-search-icon::before {
+        content: '\e71d';
+        font-family: e-icons;
+    }
+
+    .e-date-icon::before {
+        content: '\e901';
+        font-family: e-icons;
+    }
+</style>
 
 @code {
     private HubConnection hubConnection;
     private string messages = string.Empty;
     private string username = string.Empty;
     private string message = string.Empty;
+
+    SfTextBox TextBoxSendObj;
+
+    public async Task OnCreateSend()
+    {
+        var Click = EventCallback.Factory.Create<MouseEventArgs>(this, SendClick);
+        await TextBoxSendObj.AddIcon("append", "e-search-icon", new Dictionary<string, object>() { { "onclick", Click } });
+    }
+
+    public async Task SendClick()
+    {
+        await Send();
+    }
 
     private async Task Connect()
     {

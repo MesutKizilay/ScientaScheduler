@@ -46,7 +46,10 @@
             <SfDatePicker class="form-control" @bind-Value="projectDto.PlanlananBitisTarihi" />
         </div>
     </div>
-    <SfButton @onclick="GetValue">Click me</SfButton>
+    <SfButton @onclick="GetValue">Güncelle</SfButton>
+    <SfToast Title="abcbac" Content="@ToastContent" @ref="sfToast" Timeout="2500" ShowCloseButton="true">
+        <ToastPosition X="Center" Y="Top"></ToastPosition>
+    </SfToast>
 </EditForm>
 
 
@@ -75,7 +78,9 @@
 
 @code
 {
+    SfToast sfToast;
     public ProjectDto projectDto = new ProjectDto();
+    private string ToastContent { get; set; }
 
     [Parameter]
     public int id { get; set; }
@@ -86,17 +91,10 @@
         projectDto = result;
     }
 
-    public void GetValue()
+    public async Task GetValue()
     {
-        //ProjectDto projectDto2 = new ProjectDto()
-        //{
-        //    ID = projectDto.ID,
-        //    ProjeAdi = projectDto.ProjeAdi,
-        //    PlanlananBaslamaTarihi = projectDto.PlanlananBaslamaTarihi,
-        //    PlanlananBitisTarihi = projectDto.PlanlananBitisTarihi,
-        //    ProjeKodu = projectDto.ProjeKodu,
-        //    IsinSuresi = projectDto.IsinSuresi
-        //};
-        projectService.UpdateProject(projectDto);
+        ToastContent = await projectService.UpdateProject(projectDto);
+        await Task.Delay(1000);
+        await this.sfToast.ShowAsync();
     }
 }

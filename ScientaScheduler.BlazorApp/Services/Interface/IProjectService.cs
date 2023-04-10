@@ -11,6 +11,6 @@ namespace ScientaScheduler.BlazorApp.Services.Interface
     {
         Task<ProjectDto> GetProjectById(int id);
         Task<List<ProjectDto>> GetProjectList();
-        Task UpdateProject(ProjectDto projectDto);
+        Task<string> UpdateProject(ProjectDto projectDto);
     }
 }

@@ -66,16 +66,43 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             return projes;
         }
 
-        public async Task UpdateProject(ProjectDto projectDto)
+        public async Task<string> UpdateProject(ProjectDto projectDto)
         {
-            ProjectDto proje = new();
-            string serializeProduct = JsonConvert.SerializeObject(projectDto);
+            string warningMessage = "";
+            string serializeProject = JsonConvert.SerializeObject(projectDto);
 
-            StringContent stringContent = new StringContent(serializeProduct, Encoding.UTF8, "application/json");
+            StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
 
-            var result = httpClient.PutAsync("/Project/UpdateProject", stringContent).Result;
-            
-           
+            var response = await httpClient.PutAsync("/Project/UpdateProject", stringContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                warningMessage="Proje güncelleme başarılı.";
+            }
+            else
+            {
+                if ((int)response.StatusCode == 401)
+                {
+                    warningMessage = "Giriş yapmanız gerekmektedir";
+                }
+                else if ((int)response.StatusCode == 403)
+                {
+                    warningMessage = "İzniniz yok";
+                }
+                else if ((int)response.StatusCode == 404)
+                {
+                    warningMessage = "İstenilen kaynak mevcut değil";
+                }
+                else if ((int)response.StatusCode == 500)
+                {
+                    warningMessage = "Sunucuda hata oluştu";
+                }
+                else
+                {
+                    warningMessage = "Güncelleme esnasında hata meydana geldi";
+                }
+            }
+            return warningMessage;
         }
     }
 }

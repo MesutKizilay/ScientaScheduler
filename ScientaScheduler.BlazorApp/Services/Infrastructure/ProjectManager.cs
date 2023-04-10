@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ScientaScheduler.BlazorApp.Services.Infrastructure
@@ -13,6 +14,8 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
     public class ProjectManager : IProjectService
     {
         private HttpClient httpClient;
+
+
 
         private readonly IConfiguration configuration;
 
@@ -61,6 +64,18 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
                 }
             }
             return projes;
+        }
+
+        public async Task UpdateProject(ProjectDto projectDto)
+        {
+            ProjectDto proje = new();
+            string serializeProduct = JsonConvert.SerializeObject(projectDto);
+
+            StringContent stringContent = new StringContent(serializeProduct, Encoding.UTF8, "application/json");
+
+            var result = httpClient.PutAsync("/Project/UpdateProject", stringContent).Result;
+            
+           
         }
     }
 }

@@ -46,7 +46,9 @@
             <SfDatePicker class="form-control" @bind-Value="projectDto.PlanlananBitisTarihi" />
         </div>
     </div>
+    <SfButton @onclick="GetValue">Click me</SfButton>
 </EditForm>
+
 
 <table style="width:100%">
     <tr>
@@ -71,7 +73,8 @@
     }
 </style>
 
-@code {
+@code
+{
     public ProjectDto projectDto = new ProjectDto();
 
     [Parameter]
@@ -81,5 +84,19 @@
     {
         var result = await projectService.GetProjectById(id);
         projectDto = result;
+    }
+
+    public void GetValue()
+    {
+        //ProjectDto projectDto2 = new ProjectDto()
+        //{
+        //    ID = projectDto.ID,
+        //    ProjeAdi = projectDto.ProjeAdi,
+        //    PlanlananBaslamaTarihi = projectDto.PlanlananBaslamaTarihi,
+        //    PlanlananBitisTarihi = projectDto.PlanlananBitisTarihi,
+        //    ProjeKodu = projectDto.ProjeKodu,
+        //    IsinSuresi = projectDto.IsinSuresi
+        //};
+        projectService.UpdateProject(projectDto);
     }
 }

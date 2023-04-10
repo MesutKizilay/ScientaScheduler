@@ -4,19 +4,20 @@ using ScientaScheduler.Blazor.Library.DTOs;
 using ScientaScheduler.BlazorApp.Services.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace ScientaScheduler.BlazorApp.Services.Infrastructure
 {
-    public class BusinessManager : IBusinessService
+    public class TaskManager:ITaskService
     {
         private HttpClient httpClient;
 
         private readonly IConfiguration configuration;
 
-        public BusinessManager(IConfiguration configuration)
+        public TaskManager(IConfiguration configuration)
         {
             this.configuration = configuration;
             httpClient = new HttpClient();
@@ -25,39 +26,39 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<ProjectDto> GetProjectById(int id)
+        public async Task<TaskDto> GetTaskById(int id)
         {
-            ProjectDto proje = new();
+            TaskDto proje = new();
 
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            using HttpResponseMessage response = await httpClient.GetAsync($"/Project/GetProjectById?id={id}");
+            using HttpResponseMessage response = await httpClient.GetAsync($"/Task/GetTAskById?id={id}");
             if (response.IsSuccessStatusCode)
             {
                 var contentString = await response.Content.ReadAsStringAsync();
                 if (!string.IsNullOrEmpty(contentString))
                 {
-                    proje = JsonConvert.DeserializeObject<ProjectDto>(contentString);
+                    proje = JsonConvert.DeserializeObject<TaskDto>(contentString);
                 }
             }
             return proje;
         }
 
-        public async Task<List<ProjectDto>> GetProjectList()
+        public async Task<List<TaskDto>> GetTaskList()
         {
-            List<ProjectDto> projes = new List<ProjectDto>();
+            List<TaskDto> projes = new List<TaskDto>();
 
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            using HttpResponseMessage response = await httpClient.GetAsync("/Project/GetProjectList");
+            using HttpResponseMessage response = await httpClient.GetAsync("/Task/GetTaskList");
             if (response.IsSuccessStatusCode)
             {
                 var contentString = await response.Content.ReadAsStringAsync();
                 if (!string.IsNullOrEmpty(contentString))
                 {
-                    projes = JsonConvert.DeserializeObject<List<ProjectDto>>(contentString);
+                    projes = JsonConvert.DeserializeObject<List<TaskDto>>(contentString);
                 }
             }
             return projes;

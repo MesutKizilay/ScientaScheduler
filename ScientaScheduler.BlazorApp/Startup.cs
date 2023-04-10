@@ -32,7 +32,8 @@ namespace ScientaScheduler.BlazorApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<IBusinessService, BusinessManager>();
+            services.AddSingleton<IProjectService, ProjectManager>();
+            services.AddSingleton<ITaskService, TaskManager>();
             services.AddSyncfusionBlazor();
         }
 

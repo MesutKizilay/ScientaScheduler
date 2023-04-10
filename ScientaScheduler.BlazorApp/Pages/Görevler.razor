@@ -1,0 +1,51 @@
+﻿@page "/görevler"
+@inject ITaskService taskService
+@inject NavigationManager navigationManager
+
+<SfGrid Height="100vh" DataSource="@TaskDtos" Toolbar="@ToolbarItems" ColumnMenuItems=@MenuItems
+        AllowReordering="true" AllowPaging="true" AllowFiltering="true" AllowSorting="true" AllowGrouping="true" AllowResizing="true"
+        ShowColumnChooser="true" ShowColumnMenu="true">
+
+    <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true"></GridEditSettings>
+    <GridPageSettings PageSize="10"></GridPageSettings>
+    <GridEvents CommandClicked="OnCommandClicked" TValue="TaskDto"></GridEvents>
+    <GridSelectionSettings Mode=SelectionMode.Row></GridSelectionSettings>
+
+    <GridColumns>
+        <GridColumn Field=@nameof(TaskDto.ID) HeaderText="ID" IsPrimaryKey="true" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="100" AllowEditing="false" AllowReordering="false"></GridColumn>
+        <GridColumn Field=@nameof(TaskDto.PYProjeKoduID) HeaderText="Proje Kodu" Width="250" MinWidth="20" MaxWidth="1100"></GridColumn>
+        <GridColumn Field=@nameof(TaskDto.PlanlananBaslamaTarihi) HeaderText="Başlama Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
+        <GridColumn Field=@nameof(TaskDto.PlanlananBitisTarihi) HeaderText="Bitiş Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
+        <GridColumn Field=@nameof(TaskDto.Sure) HeaderText="Süreç" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="200"></GridColumn>
+        <GridColumn Field=@nameof(TaskDto.Konu) HeaderText="Konu" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="200"></GridColumn>
+        <GridColumn HeaderText="Details" Width="20" MinWidth="20" MaxWidth="200">
+            <GridCommandColumns>
+                <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" })"></GridCommandColumn>
+            </GridCommandColumns>
+        </GridColumn>
+    </GridColumns>
+
+</SfGrid>
+
+
+
+@code {
+    private List<string> ToolbarItems = new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel", "ColumnChooser" };
+    public string[] MenuItems = new string[] { "Group", "Ungroup", "ColumnChooser", "Filter", "ColumnChooser" };
+
+    public TaskDto TaskDto { get; set; }
+    public List<TaskDto> TaskDtos = new List<TaskDto>();
+    public TaskDto RowDetails { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await taskService.GetTaskList();
+        TaskDtos = result;
+    }
+
+    public void OnCommandClicked(CommandClickEventArgs<TaskDto> args)
+    {
+        RowDetails = args.RowData;
+        navigationManager.NavigateTo($"görevdetay/{args.RowData.ID}");
+    }
+}

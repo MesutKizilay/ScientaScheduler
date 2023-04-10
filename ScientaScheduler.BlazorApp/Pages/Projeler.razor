@@ -1,5 +1,5 @@
 ﻿@page "/projeler"
-@inject IBusinessService businessService
+@inject IProjectService projectService
 @inject NavigationManager navigationManager
 
 <SfGrid Height="100vh" DataSource="@projectDtos" Toolbar="@ToolbarItems" ColumnMenuItems=@MenuItems
@@ -28,27 +28,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @code {
     private List<string> ToolbarItems = new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel", "ColumnChooser" };
     public string[] MenuItems = new string[] { "Group", "Ungroup", "ColumnChooser", "Filter", "ColumnChooser" };
@@ -59,7 +38,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await businessService.GetProjectList();
+        var result = await projectService.GetProjectList();
         projectDtos = result;
     }
 

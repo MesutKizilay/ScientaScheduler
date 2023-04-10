@@ -1,7 +1,7 @@
-﻿@page "/projedetay/{id:int}"
-@inject IProjectService projectService
+﻿@page "/görevdetay/{id:int}"
+@inject ITaskService taskService
 
-<EditForm Model="@projectDto">
+<EditForm Model="@taskDto">
     <h3>Proje Detay</h3>
     <hr />
 
@@ -10,24 +10,24 @@
             Proje ID
         </label>
         <div>
-            <SfTextBox Value="@projectDto.ID.ToString()"></SfTextBox>
-            @*<InputNumber class="form-control" @bind-Value="projectDto.ID" />*@
+            <SfTextBox Value="@taskDto.ID.ToString()"></SfTextBox>
+            @*<InputNumber class="form-control" @bind-Value="TaskDto.ID" />*@
         </div>
     </div>
-    <div class="form-group row">
+    @*<div class="form-group row">
         <label for="ID" class="col-sm-2 col-form-label">
             Proje Adı
         </label>
         <div>
-            <SfTextBox class="form-control" @bind-Value="projectDto.ProjeAdi" />
+            <SfTextBox class="form-control" @bind-Value="taskDto.ProjeAdi" />
         </div>
-    </div>
+    </div>*@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">
             Proje Kodu
         </label>
         <div>
-            <SfTextBox class="form-control" @bind-Value="projectDto.ProjeKodu" />
+            <SfTextBox class="form-control" Value="@taskDto.PYProjeKoduID.ToString()" />
         </div>
     </div>
     <div class="form-group row">
@@ -35,7 +35,7 @@
             Proje Başlama Tarihi
         </label>
         <div>
-            <SfDatePicker class="form-control" @bind-Value="projectDto.PlanlananBaslamaTarihi" />
+            <SfDatePicker class="form-control" @bind-Value="taskDto.PlanlananBaslamaTarihi" />
         </div>
     </div>
     <div class="form-group row">
@@ -43,7 +43,7 @@
             Proje Bitiş Tarihi
         </label>
         <div>
-            <SfDatePicker class="form-control" @bind-Value="projectDto.PlanlananBitisTarihi" />
+            <SfDatePicker class="form-control" @bind-Value="taskDto.PlanlananBitisTarihi" />
         </div>
     </div>
 </EditForm>
@@ -55,13 +55,16 @@
         <th>Proje Kodu</th>
         <th>Proje Başlama Tarihi </th>
         <th>Proje Bitiş Tarihi</th>
+        <th>Süre</th>
+        <th>Konu</th>
     </tr>
     <tr>
-        <td>@projectDto.ID</td>
-        <td>@projectDto.ProjeAdi</td>
-        <td>@projectDto.ProjeKodu</td>
-        <td>@projectDto.PlanlananBaslamaTarihi</td>
-        <td>@projectDto.PlanlananBitisTarihi</td>
+        <td>@taskDto.ID</td>
+        <td>@taskDto.PYProjeKoduID</td>
+        <td>@taskDto.PlanlananBaslamaTarihi</td>
+        <td>@taskDto.PlanlananBitisTarihi</td>
+        <td>@taskDto.Sure</td>
+        <td>@taskDto.Konu</td>
     </tr>
 </table>
 
@@ -72,14 +75,14 @@
 </style>
 
 @code {
-    public ProjectDto projectDto = new ProjectDto();
+    public TaskDto taskDto = new TaskDto();
 
     [Parameter]
     public int id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await projectService.GetProjectById(id);
-        projectDto = result;
+        var result = await taskService.GetTaskById(id);
+        taskDto = result;
     }
 }

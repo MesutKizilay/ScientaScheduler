@@ -94,6 +94,7 @@
     public async Task GetValue()
     {
         ToastContent = await projectService.UpdateProject(projectDto);
+        this.StateHasChanged();
         await Task.Delay(1000);
         await this.sfToast.ShowAsync();
     }

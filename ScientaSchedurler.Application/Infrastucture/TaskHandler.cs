@@ -25,7 +25,7 @@ namespace ScientaSchedurler.Application.Infrastucture
 
         public GGorev GetTaskById(int id)
         {
-            return _entityRepository.Get(p => p.ID == id);
+            return _entityRepository.Get(p => p.ID0 == id);
         }
 
         public List<GGorev> GetTaskList()

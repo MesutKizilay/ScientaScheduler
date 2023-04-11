@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ScientaScheduler.BlazorApp.Services.Infrastructure
 {
-    public class TaskManager:ITaskService
+    public class TaskManager : ITaskService
     {
         private HttpClient httpClient;
 
@@ -74,6 +74,25 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             var response = await httpClient.PutAsync("/Task/UpdateTask", stringContent);
 
             return (int)response.StatusCode;
+        }
+
+        public async Task<List<TaskDto>> GetActiveTaskList()
+        {
+            List<TaskDto> projes = new List<TaskDto>();
+
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            using HttpResponseMessage response = await httpClient.GetAsync("/Task/GetActiveTaskList");
+            if (response.IsSuccessStatusCode)
+            {
+                var contentString = await response.Content.ReadAsStringAsync();
+                if (!string.IsNullOrEmpty(contentString))
+                {
+                    projes = JsonConvert.DeserializeObject<List<TaskDto>>(contentString);
+                }
+            }
+            return projes;
         }
     }
 }

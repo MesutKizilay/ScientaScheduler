@@ -10,7 +10,7 @@
             Gorev ID
         </label>
         <div>
-            <SfTextBox Value="@taskDto.ID.ToString()"></SfTextBox>
+            <SfTextBox Value="@taskDto.ID0.ToString()"></SfTextBox>
             @*<InputNumber class="form-control" @bind-Value="TaskDto.ID" />*@
         </div>
     </div>
@@ -59,7 +59,7 @@
             Süreç
         </label>
         <div>
-            <SfTextBox class="form-control" Value="@taskDto.Sure.ToString()" />
+            @*<SfTextBox class="form-control" Value="@taskDto.Sure.ToString()" />*@
         </div>
     </div>
     <SfButton @onclick="GetValue" ID="toast_type">Güncelle</SfButton>
@@ -77,16 +77,14 @@
         <th>Görev Başlama Tarihi </th>
         <th>Göre Bitiş Tarihi</th>
         <th>Süre</th>
-
     </tr>
     <tr>
-        <td>@taskDto.ID</td>
+        <td>@taskDto.ID0</td>
         <td>@taskDto.PYProjeKoduID</td>
         <td>@taskDto.Konu</td>
         <td>@taskDto.PlanlananBaslamaTarihi</td>
         <td>@taskDto.PlanlananBitisTarihi</td>
-        <td>@taskDto.Sure</td>
-
+        @*<td>@taskDto.Sure</td>*@
     </tr>
 </table>
 
@@ -97,6 +95,15 @@
 </style>
 
 @code {
+
+    public void ActionBegin(ActionEventArgs<TaskDto> args)
+    {
+        if ((args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save) && args.Action == "Add"))
+        {
+            //args.Index = Orders.Count();
+            //args.Index = (Grid.PageSettings.CurrentPage * Grid.PageSettings.PageSize) - 1;
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -125,7 +132,7 @@
     private int StatusCode { get; set; }
 
     private List<ToastModel> Toast = new List<ToastModel>
-{
+    {
         new ToastModel{ Title = "Uyarı!", Content="Proje güncellenirken bir sorun oluştu", CssClass="e-toast-warning", Icon="e-warning toast-icons" },
         new ToastModel{ Title = "Başarılı!", Content="Proje başarıyla güncellendi", CssClass="e-toast-success", Icon="e-success toast-icons" },
         new ToastModel{ Title = "Error!", Content="A problem occurred while submitting your data.", CssClass="e-toast-danger", Icon="e-error toast-icons" },

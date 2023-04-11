@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ScientaScheduler.Business.Authentication;
 using ScientaScheduler.Business.Hubs;
+using ScientaScheduler.Business.Services.Infratructure;
+using ScientaScheduler.Business.Services.Interface;
 using ScientaSchedurler.Application.DataAccess;
 using ScientaSchedurler.Application.DataAccess.EntityFramework;
 using ScientaSchedurler.Application.Infrastucture;
@@ -64,6 +66,7 @@ namespace ScientaScheduler.Business
 
             services.AddTransient<IProject, ProjectHandler>();
             services.AddTransient<ITask, TaskHandler>();
+            services.AddTransient<ITaskService, TaskManager>();
             services.AddSingleton(typeof(IEntityRepository<>), typeof(EfEntityRepositoryBase<>));
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

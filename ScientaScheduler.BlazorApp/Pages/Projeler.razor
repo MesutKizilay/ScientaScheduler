@@ -10,10 +10,10 @@
     <GridPageSettings PageSize="10"></GridPageSettings>
     <GridEvents CommandClicked="OnCommandClicked" TValue="ProjectDto"></GridEvents>
     <GridSelectionSettings Mode=SelectionMode.Row></GridSelectionSettings>
-    
+
     <GridColumns>
         <GridColumn Field=@nameof(projectDto.ID) HeaderText="ID" IsPrimaryKey="true" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="100" AllowEditing="false" AllowReordering="false"></GridColumn>
-        <GridColumn Field=@nameof(projectDto.ProjeAdi)  HeaderText="Proje Adı" Width="250" MinWidth="20" MaxWidth="1100"></GridColumn>
+        <GridColumn Field=@nameof(projectDto.ProjeAdi) HeaderText="Proje Adı" Width="250" MinWidth="20" MaxWidth="1100"></GridColumn>
         <GridColumn Field=@nameof(projectDto.PlanlananBaslamaTarihi) HeaderText="Başlama Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
         <GridColumn Field=@nameof(projectDto.PlanlananBitisTarihi) HeaderText="Bitiş Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
         <GridColumn Field=@nameof(projectDto.IsinSuresi) HeaderText="Süreç" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="200"></GridColumn>
@@ -47,5 +47,4 @@
         RowDetails = args.RowData;
         navigationManager.NavigateTo($"projedetay/{args.RowData.ID}");
     }
-
 }

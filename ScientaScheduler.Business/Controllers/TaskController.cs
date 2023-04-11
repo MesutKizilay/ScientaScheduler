@@ -34,9 +34,11 @@ namespace ScientaScheduler.Business.Controllers
         
         [HttpGet]
         [Route("GetActiveTaskList")]
-        public IActionResult GetActiveTaskList()
+        public async Task<IActionResult> GetActiveTaskList()
         {
-            return Ok(_taskService.GetActiveTaskList());
+            List<GGorev> gorevler = new();
+            gorevler = await _taskService.GetActiveTaskList();
+            return Ok(gorevler);
         }
 
         [HttpPost("AddTask")]

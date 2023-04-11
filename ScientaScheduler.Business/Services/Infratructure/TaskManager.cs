@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ScientaScheduler.Business.Services.Infratructure
@@ -28,22 +29,55 @@ namespace ScientaScheduler.Business.Services.Infratructure
 
         public async Task<List<GGorev>> GetActiveTaskList()
         {
-            List<GGorev> projes = new List<GGorev>();
+            List<GGorev> gorevler = new List<GGorev>();
 
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            using HttpResponseMessage response = await httpClient.GetAsync("AktifGorevListesi");
-           
+            Root root = new Root() { AramaMetni = "", CalisanID = "6", CariHesapID = "", GirisAnahtari = "", PageIndex = "0", PageSize = "100" };
+            
+            var authString = Convert.ToBase64String(Encoding.UTF8.GetBytes("scienta:scienta"));
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
+
+            string serializeProject = JsonConvert.SerializeObject(root);
+
+            StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PostAsync("AktifGorevListesi", stringContent);
+   
+
             if (response.IsSuccessStatusCode)
             {
                 var contentString = await response.Content.ReadAsStringAsync();
                 if (!string.IsNullOrEmpty(contentString))
                 {
-                    projes = JsonConvert.DeserializeObject<List<GGorev>>(contentString);
+                    gorevler = JsonConvert.DeserializeObject<List<GGorev>>(contentString);
                 }
             }
-            return projes;
+            return gorevler;
+            //List<GGorev> projes = new List<GGorev>();
+
+            //httpClient.DefaultRequestHeaders.Accept.Clear();
+            //httpClient.DefaultRequestHeaders.Clear();
+            //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //using HttpResponseMessage response = await httpClient.GetAsync("AktifGorevListesi");
+
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var contentString = await response.Content.ReadAsStringAsync();
+            //    if (!string.IsNullOrEmpty(contentString))
+            //    {
+            //        projes = JsonConvert.DeserializeObject<List<GGorev>>(contentString);
+            //    }
+            //}
+            //return projes;
         }
+    }
+    public class Root
+    {
+        public string CariHesapID { get; set; }
+        public string AramaMetni { get; set; }
+        public string PageIndex { get; set; }
+        public string PageSize { get; set; }
+        public string CalisanID { get; set; }
+        public string GirisAnahtari { get; set; }
     }
 }

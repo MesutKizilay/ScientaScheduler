@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,8 @@ using ScientaSchedurler.Application.Interfaces;
 using System;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ScientaScheduler.Business
 {
@@ -39,6 +42,25 @@ namespace ScientaScheduler.Business
                 options.MimeTypes = ResponseCompressionDefaults
                 .MimeTypes.Concat(new[] { "application/octet-stream" });
             });
+
+            //services.AddControllers(options =>
+            //{
+            //    options.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
+            //    options.OutputFormatters.Add(new SystemTextJsonOutputFormatter(new JsonSerializerOptions(JsonSerializerDefaults.Web)
+            //    {
+            //        ReferenceHandler = ReferenceHandler.Preserve,
+            //    }));
+            //});
+
+            //services
+            //    .AddControllers()
+            //    .AddJsonOptions(options =>
+            //    {
+            //        options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+            //        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            //    });
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

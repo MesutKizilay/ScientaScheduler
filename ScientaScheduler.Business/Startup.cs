@@ -63,6 +63,7 @@ namespace ScientaScheduler.Business
             });
 
             services.AddTransient<IProject, ProjectHandler>();
+            services.AddTransient<ITask, TaskHandler>();
             services.AddSingleton(typeof(IEntityRepository<>), typeof(EfEntityRepositoryBase<>));
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

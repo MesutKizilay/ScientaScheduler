@@ -15,8 +15,6 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
     {
         private HttpClient httpClient;
 
-
-
         private readonly IConfiguration configuration;
 
         public ProjectManager(IConfiguration configuration)
@@ -66,7 +64,7 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             return projes;
         }
 
-        public async Task<string> UpdateProject(ProjectDto projectDto)
+        public async Task<int> UpdateProject(ProjectDto projectDto)
         {
             string warningMessage = "";
             string serializeProject = JsonConvert.SerializeObject(projectDto);
@@ -75,34 +73,7 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
 
             var response = await httpClient.PutAsync("/Project/UpdateProject", stringContent);
 
-            if (response.IsSuccessStatusCode)
-            {
-                warningMessage="Proje güncelleme başarılı.";
-            }
-            else
-            {
-                if ((int)response.StatusCode == 401)
-                {
-                    warningMessage = "Giriş yapmanız gerekmektedir";
-                }
-                else if ((int)response.StatusCode == 403)
-                {
-                    warningMessage = "İzniniz yok";
-                }
-                else if ((int)response.StatusCode == 404)
-                {
-                    warningMessage = "İstenilen kaynak mevcut değil";
-                }
-                else if ((int)response.StatusCode == 500)
-                {
-                    warningMessage = "Sunucuda hata oluştu";
-                }
-                else
-                {
-                    warningMessage = "Güncelleme esnasında hata meydana geldi";
-                }
-            }
-            return warningMessage;
+            return (int)response.StatusCode;            
         }
     }
 }

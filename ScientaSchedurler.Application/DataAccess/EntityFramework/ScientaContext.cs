@@ -13,8 +13,9 @@ namespace ScientaSchedurler.Application.DataAccess.EntityFramework
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {modelBuilder.HasDefaultSchema("Gorevler");
             modelBuilder.HasDefaultSchema("ProjeYonetimi");
+            
         }
 
         public DbSet<GGorev> GGorevler { get; set; }

@@ -20,34 +20,35 @@ namespace ScientaScheduler.Business.Controllers
             this._task = _task;
         }
 
-        [HttpGet("GetTaskList")]
-        public IActionResult Get_taskList()
+        [HttpGet]
+        [Route("GetTaskList")]
+        public IActionResult GetTaskList()
         {
             return Ok(_task.GetTaskList());
         }
 
         [HttpPost("AddTask")]
-        public IActionResult Add_task(GGorev GGorev)
+        public IActionResult AddTask(GGorev GGorev)
         {
             _task.AddTask(GGorev);
             return Ok();
         }
 
         [HttpDelete("DeleteTask")]
-        public IActionResult Delete_task(GGorev GGorev)
+        public IActionResult DeleteTask(GGorev GGorev)
         {
             _task.DeleteTask(GGorev);
             return Ok();
         }
 
         [HttpGet("GetTaskById")]
-        public IActionResult Get_taskById(int id)
+        public IActionResult GetTaskById(int id)
         {
             return Ok(_task.GetTaskById(id));
         }
 
         [HttpPut("UpdateTask")]
-        public IActionResult Update_task(GGorev GGorev)
+        public IActionResult UpdateTask(GGorev GGorev)
         {
             _task.UpdateTask(GGorev);
             return Ok();

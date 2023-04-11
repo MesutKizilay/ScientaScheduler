@@ -66,7 +66,6 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
 
         public async Task<int> UpdateProject(ProjectDto projectDto)
         {
-            string warningMessage = "";
             string serializeProject = JsonConvert.SerializeObject(projectDto);
 
             StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");

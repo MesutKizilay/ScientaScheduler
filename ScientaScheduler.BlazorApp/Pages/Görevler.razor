@@ -13,12 +13,12 @@
 
     <GridColumns>
         <GridColumn Field=@nameof(TaskDto.ID) HeaderText="ID" IsPrimaryKey="true" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="100" AllowEditing="false" AllowReordering="false"></GridColumn>
-        <GridColumn Field=@nameof(TaskDto.PYProjeKoduID) HeaderText="Proje Kodu" Width="250" MinWidth="20" MaxWidth="1100"></GridColumn>
+        <GridColumn Field=@nameof(TaskDto.PYProjeKoduID) HeaderText="Proje Kodu" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
         <GridColumn Field=@nameof(TaskDto.PlanlananBaslamaTarihi) HeaderText="Başlama Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
         <GridColumn Field=@nameof(TaskDto.PlanlananBitisTarihi) HeaderText="Bitiş Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
-        <GridColumn Field=@nameof(TaskDto.Sure) HeaderText="Süreç" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="200"></GridColumn>
-        <GridColumn Field=@nameof(TaskDto.Konu) HeaderText="Konu" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="200"></GridColumn>
-        <GridColumn HeaderText="Details" Width="20" MinWidth="20" MaxWidth="200">
+        <GridColumn Field=@nameof(TaskDto.Sure) HeaderText="Süreç" TextAlign="TextAlign.Left" Width="30" MinWidth="20" MaxWidth="200"></GridColumn>
+        <GridColumn Field=@nameof(TaskDto.Konu) HeaderText="Konu" TextAlign="TextAlign.Left" Width="200" MinWidth="20" MaxWidth="1000"></GridColumn>
+        <GridColumn HeaderText="Details" Width="30" MinWidth="20" MaxWidth="200">
             <GridCommandColumns>
                 <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" })"></GridCommandColumn>
             </GridCommandColumns>

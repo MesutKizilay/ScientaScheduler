@@ -2,12 +2,12 @@
 @inject ITaskService taskService
 
 <EditForm Model="@taskDto">
-    <h3>Proje Detay</h3>
+    <h3>Görev Detay</h3>
     <hr />
 
     <div class="form-group row">
         <label for="ID" class="col-sm-2 col-form-label">
-            Proje ID
+            Gorev ID
         </label>
         <div>
             <SfTextBox Value="@taskDto.ID.ToString()"></SfTextBox>
@@ -15,13 +15,13 @@
         </div>
     </div>
     @*<div class="form-group row">
-        <label for="ID" class="col-sm-2 col-form-label">
-            Proje Adı
-        </label>
-        <div>
-            <SfTextBox class="form-control" @bind-Value="taskDto.ProjeAdi" />
-        </div>
-    </div>*@
+            <label for="ID" class="col-sm-2 col-form-label">
+                Proje Adı
+            </label>
+            <div>
+                <SfTextBox class="form-control" @bind-Value="taskDto.ProjeAdi" />
+            </div>
+        </div>*@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">
             Proje Kodu
@@ -32,7 +32,15 @@
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">
-            Proje Başlama Tarihi
+            Konu
+        </label>
+        <div>
+            <SfTextBox class="form-control" @bind-Value="taskDto.Konu" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">
+            Görev Başlama Tarihi
         </label>
         <div>
             <SfDatePicker class="form-control" @bind-Value="taskDto.PlanlananBaslamaTarihi" />
@@ -40,31 +48,45 @@
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">
-            Proje Bitiş Tarihi
+            Görev Bitiş Tarihi
         </label>
         <div>
             <SfDatePicker class="form-control" @bind-Value="taskDto.PlanlananBitisTarihi" />
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">
+            Süreç
+        </label>
+        <div>
+            <SfTextBox class="form-control" Value="@taskDto.Sure.ToString()" />
+        </div>
+    </div>
+    <SfButton @onclick="GetValue" ID="toast_type">Güncelle</SfButton>
+    <SfToast Title="abcbac" Content="@ToastContent" @ref="sfToast" Timeout="2500" ShowCloseButton="true">
+        <ToastPosition X="Right" Y="Top"></ToastPosition>
+    </SfToast>
+
 </EditForm>
 
 <table style="width:100%">
     <tr>
-        <th>Proje Id</th>
-        <th>Proje Adı</th>
+        <th>Görev Id</th>
         <th>Proje Kodu</th>
-        <th>Proje Başlama Tarihi </th>
-        <th>Proje Bitiş Tarihi</th>
-        <th>Süre</th>
         <th>Konu</th>
+        <th>Görev Başlama Tarihi </th>
+        <th>Göre Bitiş Tarihi</th>
+        <th>Süre</th>
+
     </tr>
     <tr>
         <td>@taskDto.ID</td>
         <td>@taskDto.PYProjeKoduID</td>
+        <td>@taskDto.Konu</td>
         <td>@taskDto.PlanlananBaslamaTarihi</td>
         <td>@taskDto.PlanlananBitisTarihi</td>
         <td>@taskDto.Sure</td>
-        <td>@taskDto.Konu</td>
+
     </tr>
 </table>
 
@@ -75,14 +97,41 @@
 </style>
 
 @code {
-    public TaskDto taskDto = new TaskDto();
-
-    [Parameter]
-    public int id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         var result = await taskService.GetTaskById(id);
         taskDto = result;
     }
+
+    public async Task GetValue()
+    {
+        StatusCode = Convert.ToInt32(await taskService.UpdateTask(taskDto));
+        if (StatusCode == 200)
+        {
+            await this.sfToast.ShowAsync(Toast[1]);
+        }
+        else
+        {
+            await this.sfToast.ShowAsync(Toast[0]);
+        }
+    }
+}
+
+@code{
+    SfToast sfToast;
+    public TaskDto taskDto = new TaskDto();
+    private string ToastContent { get; set; }
+    private int StatusCode { get; set; }
+
+    private List<ToastModel> Toast = new List<ToastModel>
+{
+        new ToastModel{ Title = "Uyarı!", Content="Proje güncellenirken bir sorun oluştu", CssClass="e-toast-warning", Icon="e-warning toast-icons" },
+        new ToastModel{ Title = "Başarılı!", Content="Proje başarıyla güncellendi", CssClass="e-toast-success", Icon="e-success toast-icons" },
+        new ToastModel{ Title = "Error!", Content="A problem occurred while submitting your data.", CssClass="e-toast-danger", Icon="e-error toast-icons" },
+        new ToastModel{ Title = "Information!", Content="Please read the comments carefully.", CssClass="e-toast-info", Icon="e-info toast-icons" }
+    };
+
+    [Parameter]
+    public int id { get; set; }
 }

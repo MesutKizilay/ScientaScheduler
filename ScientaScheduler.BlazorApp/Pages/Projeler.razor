@@ -17,7 +17,7 @@
         <GridColumn Field=@nameof(projectDto.PlanlananBaslamaTarihi) HeaderText="Başlama Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
         <GridColumn Field=@nameof(projectDto.PlanlananBitisTarihi) HeaderText="Bitiş Tarihi" EditType="EditType.DatePickerEdit" Format="d" TextAlign="TextAlign.Right" Width="50" MinWidth="20" MaxWidth="200"></GridColumn>
         <GridColumn Field=@nameof(projectDto.IsinSuresi) HeaderText="Süreç" TextAlign="TextAlign.Right" Width="20" MinWidth="20" MaxWidth="200"></GridColumn>
-        <GridColumn HeaderText="Details" Width="20" MinWidth="20" MaxWidth="200">
+        <GridColumn HeaderText="Details" Width="30" MinWidth="20" MaxWidth="200">
             <GridCommandColumns>
                 <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" })"></GridCommandColumn>
             </GridCommandColumns>

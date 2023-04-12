@@ -93,5 +93,16 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             }
             return projes;
         }
+
+        public async Task<int> DeleteTask(TaskDto taskDto)
+        {
+            string serializeProject = JsonConvert.SerializeObject(taskDto);
+
+            StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PutAsync("/Task/DeleteTask", stringContent);
+
+            return (int)response.StatusCode;
+        }
     }
 }

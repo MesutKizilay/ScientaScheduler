@@ -77,5 +77,21 @@ namespace ScientaScheduler.Business.Services.Infrstructure
 
             return (int)response.StatusCode;
         }
+
+        public async Task<int> DeleteTask(GGorev gGorev)
+        {
+            DeleteTask deleteTask = new DeleteTask() { CalisanID = "6", GirisAnahtari = "", GorevID = gGorev.ID0.ToString() };
+            var authString = Convert.ToBase64String(Encoding.UTF8.GetBytes(configuration["SchedulerRestSettings:Password"] + ":" + configuration["SchedulerRestSettings:UserName"]));
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
+
+            string serializeProject = JsonConvert.SerializeObject(deleteTask);
+
+            StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PostAsync("DeleteGorev", stringContent);
+
+            return (int)response.StatusCode;
+        }
     }
 }

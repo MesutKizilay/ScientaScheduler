@@ -12,5 +12,6 @@ namespace ScientaScheduler.Business.Services.Interface
         Task<List<GGorev>> GetActiveTaskList();
 
         Task<int> UpdateTask(GGorev gGorev);
+        Task<int> DeleteTask(GGorev gGorev);
     }
 }

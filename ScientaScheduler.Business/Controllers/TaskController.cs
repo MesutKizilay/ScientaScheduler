@@ -38,5 +38,12 @@ namespace ScientaScheduler.Business.Controllers
             var result = await _taskService.UpdateTask(gGorev);
             return Ok(result);
         }
+
+        [HttpPut("DeleteTask")]
+        public async Task<IActionResult> DeleteTask(GGorev gGorev)
+        {
+            var result = await _taskService.DeleteTask(gGorev);
+            return Ok(result);
+        }
     }
 }

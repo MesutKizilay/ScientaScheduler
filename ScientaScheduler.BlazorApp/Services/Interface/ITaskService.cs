@@ -12,5 +12,6 @@ namespace ScientaScheduler.BlazorApp.Services.Interface
         Task<List<TaskDto>> GetTaskList();
         Task<int> UpdateTask(TaskDto taskDto);
         Task<List<TaskDto>> GetActiveTaskList();
+        Task<int> DeleteTask(TaskDto taskDto);
     }
 }

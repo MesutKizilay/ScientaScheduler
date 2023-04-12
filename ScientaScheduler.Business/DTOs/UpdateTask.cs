@@ -5,6 +5,16 @@ using System.Threading.Tasks;
 
 namespace ScientaScheduler.Business.DTOs
 {
+    //public class UpdateTask
+    //{
+    //    public int ID0 { get; set; }
+    //    public int? PYProjeKoduID { get; set; }
+    //    //public int? UstGorevID { get; set; }
+    //    public DateTime? PlanlananBaslamaTarihi { get; set; }
+    //    public DateTime? PlanlananBitisTarihi { get; set; }
+    //    //public int? Sure { get; set; }
+    //    public string Konu { get; set; }
+    //}
     public class Json
     {
         public string ID { get; set; }

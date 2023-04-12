@@ -33,9 +33,9 @@ namespace ScientaScheduler.Business.Controllers
         }
 
         [HttpPut("UpdateTask")]
-        public IActionResult UpdateTask(GGorev gGorev)
+        public async Task<IActionResult> UpdateTask(GGorev gGorev)
         {
-            var result =_taskService.UpdateTask(gGorev);
+            var result = await _taskService.UpdateTask(gGorev);
             return Ok(result);
         }
     }

@@ -1,4 +1,4 @@
-﻿@page "/görevler"
+﻿@page "/gorevler"
 @inject ITaskService taskService
 @inject NavigationManager navigationManager
 
@@ -44,6 +44,6 @@
     public void OnCommandClicked(CommandClickEventArgs<TaskDto> args)
     {
         RowDetails = args.RowData;
-        navigationManager.NavigateTo($"görevdetay/{args.RowData.ID0}");
+        navigationManager.NavigateTo($"gorevdetay/{args.RowData.ID0}");
     }
 }

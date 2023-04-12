@@ -10,7 +10,7 @@
             Gorev ID
         </label>
         <div>
-            <SfTextBox Value="@taskDto.ID0.ToString()"></SfTextBox>
+            <SfTextBox class="form-control" Value="@taskDto.ID0.ToString()"></SfTextBox>
             @*<InputNumber class="form-control" @bind-Value="TaskDto.ID" />*@
         </div>
     </div>
@@ -54,16 +54,16 @@
             <SfDatePicker class="form-control" @bind-Value="taskDto.PlanlananBitisTarihi" />
         </div>
     </div>
-    <div class="form-group row">
+    <!--<div class="form-group row">
         <label class="col-sm-2 col-form-label">
             Süreç
         </label>
-        <div>
+        <div>-->
             @*<SfTextBox class="form-control" Value="@taskDto.Sure.ToString()" />*@
-        </div>
-    </div>
-    <SfButton @onclick="GetValue" ID="toast_type">Güncelle</SfButton>
-    <SfToast Title="abcbac" Content="@ToastContent" @ref="sfToast" Timeout="2500" ShowCloseButton="true">
+        <!--</div>
+    </div>-->
+    <SfButton OnClick="GetValue" ID="toast_type">Güncelle</SfButton>
+    <SfToast Content="@ToastContent" @ref="sfToast" Timeout="2500" ShowCloseButton="true">
         <ToastPosition X="Right" Y="Top"></ToastPosition>
     </SfToast>
 
@@ -76,7 +76,7 @@
         <th>Konu</th>
         <th>Görev Başlama Tarihi </th>
         <th>Göre Bitiş Tarihi</th>
-        <th>Süre</th>
+        @*<th>Süre</th>*@
     </tr>
     <tr>
         <td>@taskDto.ID0</td>
@@ -96,19 +96,11 @@
 
 @code {
 
-    public void ActionBegin(ActionEventArgs<TaskDto> args)
-    {
-        if ((args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save) && args.Action == "Add"))
-        {
-            //args.Index = Orders.Count();
-            //args.Index = (Grid.PageSettings.CurrentPage * Grid.PageSettings.PageSize) - 1;
-        }
-    }
-
     protected override async Task OnInitializedAsync()
     {
-        var result = await taskService.GetTaskById(id);
-        taskDto = result;
+        var result = await taskService.GetActiveTaskList();
+        //var result = await taskService.GetTaskById(id);
+        taskDto = result.SingleOrDefault(t=>t.ID0==id);
     }
 
     public async Task GetValue()

@@ -10,7 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScientaScheduler.Business.Services.Infratructure
+namespace ScientaScheduler.Business.Services.Infrstructure
 {
     public class TaskManager : ITaskService
     {
@@ -42,7 +42,7 @@ namespace ScientaScheduler.Business.Services.Infratructure
             StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync("AktifGorevListesi", stringContent);
-   
+
 
             if (response.IsSuccessStatusCode)
             {
@@ -69,6 +69,15 @@ namespace ScientaScheduler.Business.Services.Infratructure
             //    }
             //}
             //return projes;
+        }
+
+        public async Task UpdateTask(GGorev gGorev)
+        {
+            string serializeProject = JsonConvert.SerializeObject(gGorev);
+
+            StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PutAsync("UpdateGorev", stringContent);
         }
     }
     public class Root

@@ -27,7 +27,7 @@ namespace ScientaSchedurler.Application.DataAccess.EntityFramework
 
         }
 
-        public DbSet<GGorev> GGorevler { get; set; }
+        //public DbSet<GGorev> GGorevler { get; set; }
         public DbSet<PYProje> PYProjeler { get; set; }
     }
 }

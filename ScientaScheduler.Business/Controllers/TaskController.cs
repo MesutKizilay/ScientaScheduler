@@ -42,16 +42,16 @@ namespace ScientaScheduler.Business.Controllers
         }
 
         [HttpPost("AddTask")]
-        public IActionResult AddTask(GGorev GGorev)
+        public IActionResult AddTask(GGorev gGorev)
         {
-            _task.AddTask(GGorev);
+            _task.AddTask(gGorev);
             return Ok();
         }
 
         [HttpDelete("DeleteTask")]
-        public IActionResult DeleteTask(GGorev GGorev)
+        public IActionResult DeleteTask(GGorev gGorev)
         {
-            _task.DeleteTask(GGorev);
+            _task.DeleteTask(gGorev);
             return Ok();
         }
 
@@ -62,10 +62,9 @@ namespace ScientaScheduler.Business.Controllers
         }
 
         [HttpPut("UpdateTask")]
-        public IActionResult UpdateTask(GGorev GGorev)
-        {
-            _task.UpdateTask(GGorev);
-            return Ok();
+        public IActionResult UpdateTask(GGorev gGorev)
+        {            
+            return Ok(_taskService.UpdateTask(gGorev));
         }
     }
 }

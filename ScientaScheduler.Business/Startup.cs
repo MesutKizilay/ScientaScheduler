@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ScientaScheduler.Business.Authentication;
 using ScientaScheduler.Business.Hubs;
-using ScientaScheduler.Business.Services.Infratructure;
+using ScientaScheduler.Business.Services.Infrstructure;
 using ScientaScheduler.Business.Services.Interface;
 using ScientaSchedurler.Application.DataAccess;
 using ScientaSchedurler.Application.DataAccess.EntityFramework;

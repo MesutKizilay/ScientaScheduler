@@ -10,5 +10,7 @@ namespace ScientaScheduler.Business.Services.Interface
     public interface ITaskService
     {
         Task<List<GGorev>> GetActiveTaskList();
+
+        Task UpdateTask(GGorev gGorev);
     }
 }

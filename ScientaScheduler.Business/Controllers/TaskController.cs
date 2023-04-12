@@ -16,22 +16,13 @@ namespace ScientaScheduler.Business.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        private readonly ITask _task;
         ITaskService _taskService;
 
-        public TaskController(ITask task, ITaskService taskService)
+        public TaskController(ITaskService taskService)
         {
-            this._task = task;
             _taskService = taskService;
         }
 
-        [HttpGet]
-        [Route("GetTaskList")]
-        public IActionResult GetTaskList()
-        {            
-            return Ok(_task.GetTaskList());
-        }       
-        
         [HttpGet]
         [Route("GetActiveTaskList")]
         public async Task<IActionResult> GetActiveTaskList()
@@ -41,30 +32,11 @@ namespace ScientaScheduler.Business.Controllers
             return Ok(gorevler);
         }
 
-        [HttpPost("AddTask")]
-        public IActionResult AddTask(GGorev gGorev)
-        {
-            _task.AddTask(gGorev);
-            return Ok();
-        }
-
-        [HttpDelete("DeleteTask")]
-        public IActionResult DeleteTask(GGorev gGorev)
-        {
-            _task.DeleteTask(gGorev);
-            return Ok();
-        }
-
-        [HttpGet("GetTaskById")]
-        public IActionResult GetTaskById(int id)
-        {
-            return Ok(_task.GetTaskById(id));
-        }
-
         [HttpPut("UpdateTask")]
         public IActionResult UpdateTask(GGorev gGorev)
-        {            
-            return Ok(_taskService.UpdateTask(gGorev));
+        {
+            var result =_taskService.UpdateTask(gGorev);
+            return Ok(result);
         }
     }
 }

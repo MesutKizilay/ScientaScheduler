@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using ScientaScheduler.Business.DTOs;
 using ScientaScheduler.Business.Services.Interface;
 using ScientaScheduler.Core.Entities.Concrete;
 using System;
@@ -31,13 +32,13 @@ namespace ScientaScheduler.Business.Services.Infrstructure
         {
             List<GGorev> gorevler = new List<GGorev>();
 
-            Root root = new Root() { AramaMetni = "", CalisanID = "6", CariHesapID = "", GirisAnahtari = "", PageIndex = "0", PageSize = "100" };
+            ActiveTask activeTask = new ActiveTask() { AramaMetni = "", CalisanID = "6", CariHesapID = "", GirisAnahtari = "", PageIndex = "0", PageSize = "100" };
             
-            var authString = Convert.ToBase64String(Encoding.UTF8.GetBytes("scienta:scienta"));
-
+            var authString = Convert.ToBase64String(Encoding.UTF8.GetBytes(configuration["SchedulerRestSettings:Password"]+":"+configuration["SchedulerRestSettings:UserName"]));
+            
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-            string serializeProject = JsonConvert.SerializeObject(root);
+            string serializeProject = JsonConvert.SerializeObject(activeTask);
 
             StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
 
@@ -53,40 +54,27 @@ namespace ScientaScheduler.Business.Services.Infrstructure
                 }
             }
             return gorevler;
-            //List<GGorev> projes = new List<GGorev>();
-
-            //httpClient.DefaultRequestHeaders.Accept.Clear();
-            //httpClient.DefaultRequestHeaders.Clear();
-            //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //using HttpResponseMessage response = await httpClient.GetAsync("AktifGorevListesi");
-
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var contentString = await response.Content.ReadAsStringAsync();
-            //    if (!string.IsNullOrEmpty(contentString))
-            //    {
-            //        projes = JsonConvert.DeserializeObject<List<GGorev>>(contentString);
-            //    }
-            //}
-            //return projes;
         }
 
-        public async Task UpdateTask(GGorev gGorev)
+        public async Task<int> UpdateTask(GGorev gGorev)
         {
-            string serializeProject = JsonConvert.SerializeObject(gGorev);
+            List<Json> jsons = new List<Json>() { new Json {ID="291",PYProjeKoduID="",PYKilometreTasiID="1",Aciklama="",Durumu="3",
+                     FaturaAciklama="",Faturalanacak="",FaturalanmamaNedeni="",GPSBoylam="",GPSEnlem="",Konu= "RET SÜRECİ TESTİ 2"
+                     ,MusteriKodu="",OlayTuru="",PlanlananBaslamaTarihi="",PlanlananBitisTarihi="",Sonuc="",Sorumlu="6" } };
+
+            UpdateTask updateTask = new UpdateTask() { Application = "ScientaWeb", CalisanID = "428", GirisAnahtari = "", Json= jsons};
+
+            var authString = Convert.ToBase64String(Encoding.UTF8.GetBytes(configuration["SchedulerRestSettings:Password"] + ":" + configuration["SchedulerRestSettings:UserName"]));
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
+
+            string serializeProject = JsonConvert.SerializeObject(updateTask);
 
             StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PutAsync("UpdateGorev", stringContent);
+            var response = await httpClient.PostAsync("UpdateGorev", stringContent);
+
+            return (int)response.StatusCode;
         }
-    }
-    public class Root
-    {
-        public string CariHesapID { get; set; }
-        public string AramaMetni { get; set; }
-        public string PageIndex { get; set; }
-        public string PageSize { get; set; }
-        public string CalisanID { get; set; }
-        public string GirisAnahtari { get; set; }
     }
 }

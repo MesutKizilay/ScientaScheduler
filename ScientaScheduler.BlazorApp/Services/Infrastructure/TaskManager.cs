@@ -94,5 +94,4 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             return projes;
         }
     }
-
 }

@@ -32,7 +32,7 @@ namespace ScientaScheduler.Business.Services.Infrstructure
         {
             List<GGorev> gorevler = new List<GGorev>();
 
-            ActiveTask activeTask = new ActiveTask() { CalisanID = "6", CariHesapID = "", PageIndex = "0", PageSize = "100" };
+            ActiveTask activeTask = new ActiveTask() {AramaMetni="",GirisAnahtari="", CalisanID = "6", CariHesapID = "", PageIndex = "0", PageSize = "100" };
 
             var authString = Convert.ToBase64String(Encoding.UTF8.GetBytes(configuration["SchedulerRestSettings:Password"] + ":" + configuration["SchedulerRestSettings:UserName"]));
 
@@ -59,8 +59,8 @@ namespace ScientaScheduler.Business.Services.Infrstructure
         public async Task<int> UpdateTask(GGorev gGorev)
         {
             List<Json> jsons = new List<Json>() { new Json {ID=gGorev.ID0.ToString(),PYProjeKoduID=gGorev.PYProjeKoduID.ToString(),Aciklama="",Durumu="6",
-                     FaturalanmamaNedeni="",Konu= gGorev.Konu
-                     ,OlayTuru="1",PlanlananBaslamaTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),PlanlananBitisTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),Sorumlu="6" } };
+                     FaturalanmamaNedeni="",Konu= gGorev.Konu,OlayTuru="1",
+                     PlanlananBaslamaTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),PlanlananBitisTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),Sorumlu="6" } };
 
             UpdateTask updateTask = new UpdateTask() { GirisAnahtari = "", Json = jsons };
             //UpdateTask updateTask = new UpdateTask() { ID0 = gGorev.ID0, Konu = gGorev.Konu, PYProjeKoduID = gGorev.PYProjeKoduID, PlanlananBaslamaTarihi = gGorev.PlanlananBaslamaTarihi, PlanlananBitisTarihi = gGorev.PlanlananBitisTarihi };

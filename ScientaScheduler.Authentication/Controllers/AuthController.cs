@@ -34,6 +34,5 @@ namespace ScientaScheduler.Authentication.Controllers
                 return Unauthorized("Token is not valid");
             }
         }
-
     }
 }

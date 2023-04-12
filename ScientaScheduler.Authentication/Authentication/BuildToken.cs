@@ -20,11 +20,6 @@ namespace ScientaScheduler.Authentication.Authentication
 
         public string CreateToken()
         {
-            //var issuer = Configuration["JwtConfig:Issuer"];
-            //var audience = Configuration["JwtConfig:Audience"];
-            //var signingKey = Configuration["JwtConfig:SigningKey"];
-            //var bytes = Encoding.UTF8.GetBytes(signingKey);
-
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.SecurityKey));
             SigningCredentials signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             JwtSecurityToken token = new JwtSecurityToken(
@@ -60,7 +55,6 @@ namespace ScientaScheduler.Authentication.Authentication
             {
                 return false;
             }
-
         }
     }
 }

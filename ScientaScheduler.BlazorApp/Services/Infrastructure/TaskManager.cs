@@ -30,9 +30,9 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
         {
             TaskDto proje = new();
 
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //httpClient.DefaultRequestHeaders.Accept.Clear();
+            //httpClient.DefaultRequestHeaders.Clear();
+            //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             using HttpResponseMessage response = await httpClient.GetAsync($"/Task/GetTAskById?id={id}");
             if (response.IsSuccessStatusCode)
             {
@@ -49,9 +49,9 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
         {
             List<TaskDto> projes = new List<TaskDto>();
 
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //httpClient.DefaultRequestHeaders.Accept.Clear();
+            //httpClient.DefaultRequestHeaders.Clear();
+            //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             using HttpResponseMessage response = await httpClient.GetAsync("/Task/GetTaskList");
             if (response.IsSuccessStatusCode)
             {
@@ -79,9 +79,9 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
         {
             List<TaskDto> projes = new List<TaskDto>();
 
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //httpClient.DefaultRequestHeaders.Accept.Clear();
+            //httpClient.DefaultRequestHeaders.Clear();
+            //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             using HttpResponseMessage response = await httpClient.GetAsync("/Task/GetActiveTaskList");
             if (response.IsSuccessStatusCode)
             {

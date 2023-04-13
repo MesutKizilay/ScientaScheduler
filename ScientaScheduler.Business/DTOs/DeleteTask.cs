@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ScientaScheduler.Business.DTOs
 {
-    public class DeleteTask
+    public class DeleteTask:IDto
     {
         public string GorevID { get; set; }
         public string CalisanID { get; set; }

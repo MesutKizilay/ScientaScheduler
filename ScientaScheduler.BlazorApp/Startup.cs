@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 using Syncfusion.Blazor;
 using ScientaScheduler.BlazorApp.Services.Interface;
 using ScientaScheduler.BlazorApp.Services.Infrastructure;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Blazored.LocalStorage;
 
 namespace ScientaScheduler.BlazorApp
 {
@@ -31,10 +35,14 @@ namespace ScientaScheduler.BlazorApp
             services.AddHttpClient();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddSyncfusionBlazor();
+           
+            services.AddBlazoredLocalStorage();
+
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<IProjectService, ProjectManager>();
             services.AddSingleton<ITaskService, TaskManager>();
-            services.AddSyncfusionBlazor();
+            services.AddSingleton<IAuthService, AuthManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

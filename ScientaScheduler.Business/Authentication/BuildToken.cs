@@ -30,18 +30,27 @@ namespace ScientaScheduler.Business.Authentication
                 expires: DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration),
                 signingCredentials: signingCredentials,
                 claims: SetClaims(loginKeys)
+
                 ); ;
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            return handler.WriteToken(token);
+
+            var tokenString = handler.WriteToken(token);
+
+            //JwtSecurityToken securityToken = (JwtSecurityToken)handler.ReadToken(tokenString);
+            //IEnumerable<Claim> claims = securityToken.Claims;
+
+            return tokenString;
         }
 
         private IEnumerable<Claim> SetClaims(string[] loginKeys)
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, loginKeys[1]),
-                new Claim(ClaimTypes.NameIdentifier, loginKeys[0]),
+                new Claim("userFullName", loginKeys[1],ClaimValueTypes.String),
+                //new Claim(ClaimTypes.Name, loginKeys[1]),
+                new Claim("userId", loginKeys[0],ClaimValueTypes.Integer),
+                new Claim("gırısAnahtarı",loginKeys[3],ClaimValueTypes.String)
             };
             return claims;
         }

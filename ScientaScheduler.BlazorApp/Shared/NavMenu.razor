@@ -1,5 +1,8 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">ScientaScheduler.BlazorApp</a>
+﻿@inject ILocalStorageService localStorage
+@using System.IdentityModel.Tokens.Jwt;
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">@name </a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -28,20 +31,20 @@
             </NavLink>
         </li>
         @*<li class="nav-item px-3">
-            <NavLink class="nav-link" href="projedetay">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Proje Bilgileri
-            </NavLink>
-        </li>*@
+                <NavLink class="nav-link" href="projedetay">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Proje Bilgileri
+                </NavLink>
+            </li>*@
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="gorevler">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Görev Listesi
             </NavLink>
         </li>
         @*<li class="nav-item px-3">
-            <NavLink class="nav-link" href="projedetay">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Görev Bilgileri
-            </NavLink>
-        </li>*@
+                <NavLink class="nav-link" href="projedetay">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Görev Bilgileri
+                </NavLink>
+            </li>*@
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="chat">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Chat
@@ -52,11 +55,19 @@
 
 @code {
     private bool collapseNavMenu = true;
-
+    string token,name;
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        token = await localStorage.GetItemAsync<string>("token");
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        JwtSecurityToken securityToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
+        name = securityToken.Claims.First(c => c.Type == "userFullName").Value;
     }
 }

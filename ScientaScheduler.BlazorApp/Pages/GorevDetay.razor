@@ -1,7 +1,10 @@
 ﻿@page "/gorevdetay/{id:int}"
 @inject ITaskService taskService
+@using System.IO
+@inject IConfiguration configuration
 
 <EditForm Model="@taskDto">
+
     <h3>Görev Detay</h3>
     <hr />
 
@@ -59,8 +62,8 @@
             Süreç
         </label>
         <div>-->
-            @*<SfTextBox class="form-control" Value="@taskDto.Sure.ToString()" />*@
-        <!--</div>
+    @*<SfTextBox class="form-control" Value="@taskDto.Sure.ToString()" />*@
+    <!--</div>
     </div>-->
     <SfButton OnClick="GetValue" ID="toast_type">Güncelle</SfButton>
     <SfToast Content="@ToastContent" @ref="sfToast" Timeout="2500" ShowCloseButton="true">
@@ -68,6 +71,18 @@
     </SfToast>
 
 </EditForm>
+<InputFile OnChange="@LoadFiles" class="form-control" multiple accept=".png,.jpg,.jpeg" />
+
+@if (errors.Count > 0)
+{
+    <h2>Errors</h2>
+    <ul class="text-danger">
+        @foreach (var error in errors)
+        {
+            <li>@error</li>
+        }
+    </ul>
+}
 
 <table style="width:100%">
     <tr>
@@ -94,13 +109,49 @@
     }
 </style>
 
+@code{
+    private long maxFileSize = 1024 * 1024 * 3;
+    private int maxAllowedFiles = 3;
+    private List<string> errors = new List<string>();
+
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        errors.Clear();
+
+        if (e.FileCount > maxAllowedFiles)
+        {
+            errors.Add($"Error: Attempting to upload {e.FileCount} files,but only {maxAllowedFiles} are allowed");
+            return;
+        }
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                string newFileName = Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(file.Name));
+
+                string path = Path.Combine(configuration.GetValue<string>("FileStorage")!, "mc", newFileName);
+
+                Directory.CreateDirectory(Path.Combine(configuration.GetValue<string>("FileStorage")!, "mc"));
+
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+            }
+            catch (Exception ex)
+            {
+                errors.Add($"File:{file.Name} Error:{ex.Message}");
+            }
+        }
+    }
+}
+
 @code {
 
     protected override async Task OnInitializedAsync()
     {
         var result = await taskService.GetActiveTaskList();
         //var result = await taskService.GetTaskById(id);
-        taskDto = result.SingleOrDefault(t=>t.ID0==id);
+        taskDto = result.SingleOrDefault(t => t.ID0 == id);
     }
 
     public async Task GetValue()
@@ -124,7 +175,7 @@
     private int StatusCode { get; set; }
 
     private List<ToastModel> Toast = new List<ToastModel>
-    {
+{
         new ToastModel{ Title = "Uyarı!", Content="Proje güncellenirken bir sorun oluştu", CssClass="e-toast-warning", Icon="e-warning toast-icons" },
         new ToastModel{ Title = "Başarılı!", Content="Proje başarıyla güncellendi", CssClass="e-toast-success", Icon="e-success toast-icons" },
         new ToastModel{ Title = "Error!", Content="A problem occurred while submitting your data.", CssClass="e-toast-danger", Icon="e-error toast-icons" },

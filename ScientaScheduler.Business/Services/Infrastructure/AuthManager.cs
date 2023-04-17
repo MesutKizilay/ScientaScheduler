@@ -50,7 +50,7 @@ namespace ScientaScheduler.Business.Authentication
             //    //{
             //    //    loginKey = JsonConvert.DeserializeObject<string>(contentString);
             //    //}                
-            //} 
+            //}
             
             return loginKeys;
         }

@@ -85,7 +85,6 @@ namespace ScientaScheduler.Business
                     ClockSkew = TimeSpan.Zero
                 };
             });
-
             services.AddSingleton<IAuthorization, BuildToken>();
             services.AddTransient<IAuthService, AuthManager>();
             services.AddTransient<IProject, ProjectHandler>();

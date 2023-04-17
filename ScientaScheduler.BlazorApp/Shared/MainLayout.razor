@@ -1,13 +1,17 @@
 ﻿@inherits LayoutComponentBase
-
+@inject IAuthService authService
+@using System.IdentityModel.Tokens.Jwt;
+@inject ILocalStorageService localStorage
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
+
     <div class="main">
+
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <a>Hoşgeldiniz @name</a>
         </div>
 
         <div class="content px-4">
@@ -15,3 +19,25 @@
         </div>
     </div>
 </div>
+@code{
+    string name, result;
+    UserForLoginDto userForLoginDto = new UserForLoginDto() { Password = "1", UserName = "BLG" };
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        result = await authService.Login(userForLoginDto);
+        //var result = await taskService.GetTaskById(id);
+        //taskDto = result.SingleOrDefault(t => t.ID0 == id);
+        await localStorage.SetItemAsync("token", result);
+
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        JwtSecurityToken securityToken = (JwtSecurityToken)tokenHandler.ReadToken(result);
+        name = securityToken.Claims.First(c => c.Type == "userFullName").Value;
+    }
+
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    await localStorage.SetItemAsync("token", result);
+    //}
+}

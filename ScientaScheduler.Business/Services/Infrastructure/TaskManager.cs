@@ -31,7 +31,7 @@ namespace ScientaScheduler.Business.Services.Infrastructure
         {
             List<GGorev> gorevler = new List<GGorev>();
 
-            ActiveTask activeTask = new ActiveTask() {AramaMetni="",GirisAnahtari="", CalisanID = "6", CariHesapID = "", PageIndex = "0", PageSize = "100" };
+            ActiveTask activeTask = new ActiveTask() { AramaMetni = "", GirisAnahtari = "", CalisanID = "6", CariHesapID = "", PageIndex = "0", PageSize = "100" };
 
             var stringContent = InitializeForJSONFormat(activeTask);
 
@@ -55,7 +55,7 @@ namespace ScientaScheduler.Business.Services.Infrastructure
                      PlanlananBaslamaTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),PlanlananBitisTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),Sorumlu="6",
                      FaturaAciklama="",Faturalanacak="",GPSBoylam="",GPSEnlem="",MusteriKodu="",PYKilometreTasiID="",Sonuc=""} };
 
-            UpdateTask updateTask = new UpdateTask() {CalisanID="6", Application= "ScientaWeb", GirisAnahtari = "", Json = jsons };
+            UpdateTask updateTask = new UpdateTask() { CalisanID = "6", Application = "ScientaWeb", GirisAnahtari = "", Json = jsons };
 
             var stringContent = InitializeForJSONFormat(updateTask);
 

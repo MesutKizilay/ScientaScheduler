@@ -27,8 +27,6 @@
     protected async override Task OnInitializedAsync()
     {
         result = await authService.Login(userForLoginDto);
-        //var result = await taskService.GetTaskById(id);
-        //taskDto = result.SingleOrDefault(t => t.ID0 == id);
         await localStorage.SetItemAsync("token", result);
 
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();

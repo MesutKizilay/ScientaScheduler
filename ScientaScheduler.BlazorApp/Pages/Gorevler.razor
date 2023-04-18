@@ -21,12 +21,11 @@
         <GridColumn HeaderText="Details" Width="50" MinWidth="20" MaxWidth="200">
             <GridCommandColumns>
                 <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" })"></GridCommandColumn>
-                @*<GridCommandColumn Type="CommandButtonType.Delete" ButtonOption="@(new CommandButtonOptions() { IconCss = " e-icons e-delete", CssClass="e-flat" })"></GridCommandColumn>*@
+                <GridCommandColumn Type="CommandButtonType.Delete" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-delete", CssClass="e-flat" })"></GridCommandColumn>
             </GridCommandColumns>
         </GridColumn>
     </GridColumns>
 </SfGrid>
-
 
 @code {
     private List<string> ToolbarItems = new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel", "ColumnChooser" };

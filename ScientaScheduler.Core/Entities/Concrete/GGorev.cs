@@ -54,6 +54,7 @@ namespace ScientaScheduler.Core.Entities.Concrete
         public object SiparisDetayiIDDefault { get; set; }
         public bool TanimliGorevIDSpecified { get; set; }
         public object TanimliGorevIDDefault { get; set; }
+        public int? UstGorevID { get; set; }
         public bool UstGorevIDSpecified { get; set; }
         public object UstGorevIDDefault { get; set; }
         public string Konu { get; set; }

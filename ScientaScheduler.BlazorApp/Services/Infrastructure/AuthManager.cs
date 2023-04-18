@@ -40,8 +40,6 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
 
             var response = await httpClient.PostAsync("/Auth/Login", stringContent);
 
-            //var contentString = await response.Content.ReadAsStringAsync();
-
             if (response.IsSuccessStatusCode)
             {
                 var contentString = await response.Content.ReadAsStringAsync();

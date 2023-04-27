@@ -20,6 +20,7 @@ namespace ScientaScheduler.Core.Entities.Concrete
 
     public class GGorev : IEntity
     {
+        public int? Sure { get; set; }
         public int ID0 { get; set; }
         public bool ID0Specified { get; set; }
         public object ID0Default { get; set; }

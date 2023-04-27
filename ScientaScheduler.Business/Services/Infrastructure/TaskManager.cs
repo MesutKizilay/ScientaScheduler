@@ -52,7 +52,7 @@ namespace ScientaScheduler.Business.Services.Infrastructure
         {
             List<Json> jsons = new List<Json>() { new Json {ID=gGorev.ID0.ToString(),PYProjeKoduID=gGorev.PYProjeKoduID.ToString(),Aciklama="",Durumu="6",
                      FaturalanmamaNedeni="",Konu= gGorev.Konu,OlayTuru="1",
-                     PlanlananBaslamaTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),PlanlananBitisTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),Sorumlu="6",
+                     PlanlananBaslamaTarihi=gGorev.PlanlananBaslamaTarihi.ToString(),PlanlananBitisTarihi=gGorev.PlanlananBitisTarihi.ToString(),Sorumlu="6",
                      FaturaAciklama="",Faturalanacak="",GPSBoylam="",GPSEnlem="",MusteriKodu="",PYKilometreTasiID="",Sonuc=""} };
 
             UpdateTask updateTask = new UpdateTask() { CalisanID = "6", Application = "ScientaWeb", GirisAnahtari = "", Json = jsons };

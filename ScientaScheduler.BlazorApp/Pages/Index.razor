@@ -1,57 +1,11 @@
 ﻿@page "/"
-
+@inject NavigationManager navigationManager
 @using System.IO
-@inject IConfiguration configuration 
+@inject IConfiguration configuration
 
-@*<title>Upload Demo App</title>
-<h1>Upload Demo!</h1>*@
-
-
-@*<InputFile OnChange="@LoadFiles" class="form-control" multiple accept=".png,.jpg,.jpeg" />
-
-@if (errors.Count > 0)
-{
-    <h2>Errors</h2>
-    <ul class="text-danger">
-        @foreach (var error in errors)
-        {
-            <li>@error</li>
-        }
-    </ul>
-}*@
-
-@*@code{
-    private long maxFileSize = 1024 * 1024 * 3;
-    private int maxAllowedFiles = 3;
-    private List<string> errors = new List<string>();
-
-
-    private async Task LoadFiles(InputFileChangeEventArgs e)
+@code {
+    protected override void OnInitialized()
     {
-        errors.Clear();
-
-        if (e.FileCount > maxAllowedFiles)
-        {
-            errors.Add($"Error: Attempting to upload {e.FileCount} files,but only {maxAllowedFiles} are allowed");
-            return;
-        }
-        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
-        {
-            try
-            {
-                string newFileName = Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(file.Name));
-
-                string path = Path.Combine(configuration.GetValue<string>("FileStorage")!, "mc", newFileName);
-
-                Directory.CreateDirectory(Path.Combine(configuration.GetValue<string>("FileStorage")!, "mc"));
-
-                await using FileStream fs = new(path, FileMode.Create);
-                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
-            }
-            catch (Exception ex)
-            {
-                errors.Add($"File:{file.Name} Error:{ex.Message}");
-            }
-        }
+        navigationManager.NavigateTo("/SPY04N");
     }
-}*@
+}

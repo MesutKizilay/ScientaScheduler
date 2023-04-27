@@ -37,7 +37,7 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             string serializeProject = JsonConvert.SerializeObject(userForLoginDto);
 
             StringContent stringContent = new StringContent(serializeProject, Encoding.UTF8, "application/json");
-
+            
             var response = await httpClient.PostAsync("/Auth/Login", stringContent);
 
             if (response.IsSuccessStatusCode)

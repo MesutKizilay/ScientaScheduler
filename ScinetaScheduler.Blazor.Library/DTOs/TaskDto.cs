@@ -23,7 +23,7 @@ namespace ScientaScheduler.Blazor.Library.DTOs
         public int? UstGorevID { get; set; }
         public DateTime? PlanlananBaslamaTarihi { get; set; }
         public DateTime? PlanlananBitisTarihi { get; set; }
-        //public int? Sure { get; set; }
+        public int? Sure { get; set; }
         public string Konu { get; set; }
     }
 

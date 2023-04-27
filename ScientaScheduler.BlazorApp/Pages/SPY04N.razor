@@ -3,42 +3,66 @@
 @using ScientaScheduler.BlazorApp.Data
 <h3>Gantt Şeması</h3>
 
+<div class="gantt" style="height: 85vh;width: 85vw;">
+    <SfGantt DataSource="@TaskDtos" Height="100%" Width="100%" Toolbar="@(new List<string>() { "Search" })" ProjectStartDate="@ProjectStart2" ProjectEndDate="@ProjectEnd2"
+             AllowFiltering="true" AllowSorting="true" AllowReordering="true" AllowResizing="true" AllowSelection="true" AllowRowDragAndDrop="true"
+             ShowColumnMenu="true" SelectedRowIndex="0" EnableContextMenu="true">
 
+        <GanttTaskFields Id="ID0" Name="Konu" StartDate="PlanlananBaslamaTarihi" EndDate="PlanlananBitisTarihi" Duration="Duration" ParentID="UstGorevID"></GanttTaskFields>
 
+        <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Auto" AllowTaskbarEditing="true" ></GanttEditSettings>
 
-<SfGantt DataSource="@TaskDtos" Height="450px" Width="1600px" Toolbar="@(new List<string>() { "Search" })"
-         AllowFiltering="true" AllowSorting="true" AllowReordering="true" AllowResizing="true" AllowSelection="true"
-         ShowColumnMenu="true" SelectedRowIndex="0">
-    <GanttTaskFields Id="ID0" Name="Konu" StartDate="PlanlananBaslamaTarihi" EndDate="PlanlananBitisTarihi" Duration="Duration" ParentID="UstGorevID">
-    </GanttTaskFields>
-
-    <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Dialog" AllowTaskbarEditing="true"></GanttEditSettings>
-
-    <GanttColumns>
-        <GanttColumn Field="ID0" HeaderText="ID" TextAlign="TextAlign.Right" Width="40" MinWidth="20"></GanttColumn>
-        <GanttColumn Field="Konu" HeaderText="Görev Adı" Width="200" MinWidth="50"></GanttColumn>
-        <GanttColumn Field="PlanlananBaslamaTarihi" HeaderText="Başlama Tarihi" Width="100" MinWidth="20"></GanttColumn>
-        <GanttColumn Field="PlanlananBitisTarihi" HeaderText="Bitiş Tarihi" Width="100" MinWidth="20"></GanttColumn>
-        <GanttColumn Field="Duration" HeaderText="Süre" Width="100" MinWidth="20"></GanttColumn>
-    </GanttColumns>
-</SfGantt>
-
-@code{
+        <GanttEvents TValue="TaskDto"  TaskbarEdited="TaskbarBeginEditHandler"
+                                      EndEdit="TaskbarBeginEditHandler"></GanttEvents>
+                                        
+        <GanttColumns>
+            <GanttColumn Field="ID0" HeaderText="ID" TextAlign="TextAlign.Right" Width="40" MinWidth="20" HideAtMedia="(min-width: 700px)" AllowReordering="false"></GanttColumn>
+            <GanttColumn Field="Konu" HeaderText="Görev Adı" Width="200" MinWidth="50"></GanttColumn>
+            <GanttColumn Field="PlanlananBaslamaTarihi" HeaderText="Başlama Tarihi" Width="100" MinWidth="20"></GanttColumn>
+            <GanttColumn Field="PlanlananBitisTarihi" HeaderText="Bitiş Tarihi" Width="100" MinWidth="20"></GanttColumn>
+            <GanttColumn Field="Duration" HeaderText="Süre" Width="100" MinWidth="20"></GanttColumn>
+        </GanttColumns>
+        <GanttEditDialogFields>
+            <GanttEditDialogField Type="GanttDialogFieldType.General" HeaderText="General Tab"></GanttEditDialogField>
+            <GanttEditDialogField Type="GanttDialogFieldType.Dependency" HeaderText="Dependency"></GanttEditDialogField>
+        </GanttEditDialogFields>
+    </SfGantt>
+</div>
+@code{    
+    private async void TaskbarBeginEditHandler(TaskbarEditedEventArgs<TaskDto> args)
+    {
+        await taskService.UpdateTask(args.Data);
+    }
     public TaskDto taskDto = new TaskDto();
     public List<TaskDto> TaskDtos = new List<TaskDto>();
-    public TaskDto RowDetails { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
+    private DateTime ProjectStart2 = new DateTime(2022, 12, 25);
+    private DateTime ProjectEnd2 = new DateTime(2023, 6, 6);
+
+    protected async override Task OnInitializedAsync()
     {
-        var result = await taskService.GetActiveTaskList();
-        TaskDtos = result;
+        await Task.Delay(700);
+        TaskDtos = await taskService.GetActiveTaskList();
+        StateHasChanged();
     }
+
+
+
+
+    //public void SaveHandler(CellSaveArgs<TaskDto> args)
+    //{
+    //    // Here, you can customize your code.
+    //}
 }
 
 
 
-<SfGantt DataSource="@TaskCollection" Height="450px" Width="1600px">
-        <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress" ParentID="ParentId"></GanttTaskFields>
+
+
+
+@*<SfGantt DataSource="@TaskCollection" Height="450px" Width="1600px">
+        <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Durati
+    on="Duration" Progress="Progress" ParentID="ParentId"></GanttTaskFields>
         <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Dialog" AllowTaskbarEditing="true"></GanttEditSettings>
     </SfGantt>
 
@@ -69,64 +93,61 @@
             };
             return Tasks;
         }
-    }
-
-
-
+    }*@
 
 
 
 @*<div class="col-lg-12 control-section">
-    <div class="content-wrapper">
-        <div class="row">
-            <SfGantt DataSource="@TaskCollection" Height="450px" Width="1600" HighlightWeekends="true" TreeColumnIndex="1"
-                     ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd">
-                <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
-                                 Dependency="Predecessor" ParentID="ParentId"></GanttTaskFields>
-                <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Dialog" AllowTaskbarEditing="true"></GanttEditSettings>
-                <GanttColumns>
-                    <GanttColumn Field="TaskId"></GanttColumn>
-                    <GanttColumn Field="TaskName" Width="250"></GanttColumn>
-                    <GanttColumn Field="StartDate"></GanttColumn>
-                    <GanttColumn Field="EndDate"></GanttColumn>
-                    <GanttColumn Field="Duration"></GanttColumn>
-                    <GanttColumn Field="Progress"></GanttColumn>
-                    <GanttColumn Field="Predecessor"></GanttColumn>
-                </GanttColumns>
-                <GanttLabelSettings LeftLabel="TaskName" TValue="DefaultData.TaskData"> </GanttLabelSettings>
-                <GanttSplitterSettings Position="30%"> </GanttSplitterSettings>
-                <GanttTemplates TValue="DefaultData.TaskData">
-                    <TaskbarTemplate>
-                        @{
-                            var task = (context as DefaultData.TaskData);
-                        }
-                        <div class="e-gantt-child-taskbar-inner-div e-gantt-child-taskbar" style="height:22px;width:100%;">
-                            <div class="e-gantt-child-progressbar-inner-div e-gantt-child-progressbar" style="height:22px;width:@task.Progress%;">
-                                <span class="e-task-label" style="position:absolute;top:3px;font-size:12px;text-overflow:ellipsis;height:90%;overflow:hidden;">@(task.Progress + "%")</span>
+        <div class="content-wrapper">
+            <div class="row">
+                <SfGantt DataSource="@TaskCollection" Height="450px" Width="1600" HighlightWeekends="true" TreeColumnIndex="1"
+                         ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd">
+                    <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
+                                     Dependency="Predecessor" ParentID="ParentId"></GanttTaskFields>
+                    <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Dialog" AllowTaskbarEditing="true"></GanttEditSettings>
+                    <GanttColumns>
+                        <GanttColumn Field="TaskId"></GanttColumn>
+                        <GanttColumn Field="TaskName" Width="250"></GanttColumn>
+                        <GanttColumn Field="StartDate"></GanttColumn>
+                        <GanttColumn Field="EndDate"></GanttColumn>
+                        <GanttColumn Field="Duration"></GanttColumn>
+                        <GanttColumn Field="Progress"></GanttColumn>
+                        <GanttColumn Field="Predecessor"></GanttColumn>
+                    </GanttColumns>
+                    <GanttLabelSettings LeftLabel="TaskName" TValue="DefaultData.TaskData"> </GanttLabelSettings>
+                    <GanttSplitterSettings Position="30%"> </GanttSplitterSettings>
+                    <GanttTemplates TValue="DefaultData.TaskData">
+                        <TaskbarTemplate>
+                            @{
+                                var task = (context as DefaultData.TaskData);
+                            }
+                            <div class="e-gantt-child-taskbar-inner-div e-gantt-child-taskbar" style="height:22px;width:100%;">
+                                <div class="e-gantt-child-progressbar-inner-div e-gantt-child-progressbar" style="height:22px;width:@task.Progress%;">
+                                    <span class="e-task-label" style="position:absolute;top:3px;font-size:12px;text-overflow:ellipsis;height:90%;overflow:hidden;">@(task.Progress + "%")</span>
+                                </div>
                             </div>
-                        </div>
-                    </TaskbarTemplate>
-                    <ParentTaskbarTemplate>
-                        @{
-                            var task = (context as DefaultData.TaskData);
-                        }
-                        <div class="e-gantt-parent-taskbar-inner-div e-gantt-parent-taskbar" style="height:22px;text-overflow:ellipsis;width:100%">
-                            <div class="e-gantt-parent-progressbar-inner-div e-row-expand e-gantt-parent-progressbar " style="height:22px;text-overflow:ellipsis;width:@task.Progress%;">
-                                <span class="e-task-label" style="position:absolute;top:3px;font-size:12px;text-overflow:ellipsis;height:90%;overflow:hidden;">@(task.Progress + "%")</span>
+                        </TaskbarTemplate>
+                        <ParentTaskbarTemplate>
+                            @{
+                                var task = (context as DefaultData.TaskData);
+                            }
+                            <div class="e-gantt-parent-taskbar-inner-div e-gantt-parent-taskbar" style="height:22px;text-overflow:ellipsis;width:100%">
+                                <div class="e-gantt-parent-progressbar-inner-div e-row-expand e-gantt-parent-progressbar " style="height:22px;text-overflow:ellipsis;width:@task.Progress%;">
+                                    <span class="e-task-label" style="position:absolute;top:3px;font-size:12px;text-overflow:ellipsis;height:90%;overflow:hidden;">@(task.Progress + "%")</span>
+                                </div>
                             </div>
-                        </div>
-                    </ParentTaskbarTemplate>
-                </GanttTemplates>
-            </SfGantt>
+                        </ParentTaskbarTemplate>
+                    </GanttTemplates>
+                </SfGantt>
+            </div>
         </div>
     </div>
-</div>
-@code {
-    private DateTime ProjectStart = new DateTime(2021, 3, 24);
-    private DateTime ProjectEnd = new DateTime(2021, 7, 6);
-    private List<DefaultData.TaskData> TaskCollection { get; set; }
-    protected override void OnInitialized()
-    {
-        this.TaskCollection = DefaultData.ProjectNewData();
-    }
-}*@
+    @code {
+        private DateTime ProjectStart = new DateTime(2021, 3, 24);
+        private DateTime ProjectEnd = new DateTime(2021, 7, 6);
+        private List<DefaultData.TaskData> TaskCollection { get; set; }
+        protected override void OnInitialized()
+        {
+            this.TaskCollection = DefaultData.ProjectNewData();
+        }
+    }*@

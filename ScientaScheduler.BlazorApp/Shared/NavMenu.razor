@@ -60,9 +60,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        token = await localStorage.GetItemAsync<string>("token");
-        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-        JwtSecurityToken securityToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
-        name = securityToken.Claims.First(c => c.Type == "userFullName").Value;
+        //token = await localStorage.GetItemAsync<string>("token");
+        //JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        //JwtSecurityToken securityToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
+        //name = securityToken.Claims.First(c => c.Type == "userFullName").Value;
     }
 }

@@ -26,12 +26,12 @@
 
     protected async override Task OnInitializedAsync()
     {
-        result = await authService.Login(userForLoginDto);
-        await localStorage.SetItemAsync("token", result);
+        //result = await authService.Login(userForLoginDto);
+        //await localStorage.SetItemAsync("token", result);
 
-        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-        JwtSecurityToken securityToken = (JwtSecurityToken)tokenHandler.ReadToken(result);
-        name = securityToken.Claims.First(c => c.Type == "userFullName").Value;
+        //JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        //JwtSecurityToken securityToken = (JwtSecurityToken)tokenHandler.ReadToken(result);
+        //name = securityToken.Claims.First(c => c.Type == "userFullName").Value;
     }
 
     //protected override async Task OnAfterRenderAsync(bool firstRender)

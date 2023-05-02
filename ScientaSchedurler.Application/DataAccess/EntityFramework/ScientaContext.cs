@@ -9,14 +9,14 @@ namespace ScientaSchedurler.Application.DataAccess.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=46.1.103.232,1919;Initial Catalog=GvardalScienta;User ID=GVardal;Password=Vardal2023!;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer("Data Source = 93.89.70.228, 1433; User ID = sa;Database=BerkelScienta; Password = Bil2019TAY!; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.HasDefaultSchema("Gorevler");
-            modelBuilder.HasDefaultSchema("ProjeYonetimi");
-
+            modelBuilder.HasDefaultSchema("InsanKaynaklari");
+            //modelBuilder.Entity<IKCalisan>().ToTable("IKCalisanlar", schema: "InsanKaynaklari");
             //modelBuilder.Entity<GGorev>(entity =>
             //{
             //    entity.ToTable("GGorevler", "Gorevler");
@@ -25,10 +25,8 @@ namespace ScientaSchedurler.Application.DataAccess.EntityFramework
             //{
             //    entity.ToTable("PYProjeler", "ProjeYonetimi");
             //});
-
         }
 
-        //public DbSet<GGorev> GGorevler { get; set; }
-        public DbSet<PYProje> PYProjeler { get; set; }
+        public DbSet<IKCalisan> IKCalisanlar { get; set; }
     }
 }

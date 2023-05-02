@@ -13,12 +13,13 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
 {
     public class TaskManager : ITaskService
     {
+        IResourceService _resourceService;
         private HttpClient httpClient;
-
         private readonly IConfiguration configuration;
 
-        public TaskManager(IConfiguration configuration)
+        public TaskManager(IConfiguration configuration, IResourceService resourceService)
         {
+            _resourceService = resourceService;
             this.configuration = configuration;
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(configuration["SchedulerBusinessSettings:BaseUrl"]);
@@ -78,6 +79,8 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
         public async Task<List<TaskDto>> GetActiveTaskList()
         {
             List<TaskDto> projes = new List<TaskDto>();
+            List<ResourceDto> resources = new List<ResourceDto>();
+            resources = _resourceService.GetResourceList();
 
             //httpClient.DefaultRequestHeaders.Accept.Clear();
             //httpClient.DefaultRequestHeaders.Clear();
@@ -90,6 +93,10 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
                 {
                     projes = JsonConvert.DeserializeObject<List<TaskDto>>(contentString);
                 }
+            }
+            foreach (var proje in projes)
+            {
+                proje.Resources = resources.FindAll(r => r.ID == proje.Sorumlu);
             }
             return projes;
         }

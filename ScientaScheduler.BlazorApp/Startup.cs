@@ -43,6 +43,7 @@ namespace ScientaScheduler.BlazorApp
             services.AddSingleton<IProjectService, ProjectManager>();
             services.AddSingleton<ITaskService, TaskManager>();
             services.AddSingleton<IAuthService, AuthManager>();
+            services.AddSingleton<IResourceService, ResourceManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -25,6 +25,8 @@ namespace ScientaScheduler.Blazor.Library.DTOs
         public DateTime? PlanlananBitisTarihi { get; set; }
         public int? Sure { get; set; }
         public string Konu { get; set; }
+        public List<ResourceDto> Resources { get; set; }
+        public int Sorumlu { get; set; }
     }
 
     //public class TaskDto

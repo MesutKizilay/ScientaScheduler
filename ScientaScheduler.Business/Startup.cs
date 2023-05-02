@@ -85,10 +85,14 @@ namespace ScientaScheduler.Business
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
+            services.AddSingleton<IResourceService, ResourceManager>();
             services.AddSingleton<IAuthorization, BuildToken>();
             services.AddTransient<IAuthService, AuthManager>();
             services.AddTransient<IProject, ProjectHandler>();
             services.AddTransient<ITask, TaskHandler>();
+            services.AddTransient<IResource, ResourceHandler>();
+
             services.AddTransient<ITaskService, TaskManager>();
             services.AddSingleton(typeof(IEntityRepository<>), typeof(EfEntityRepositoryBase<>));
         }

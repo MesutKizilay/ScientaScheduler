@@ -1,77 +1,110 @@
 ﻿@page "/SPY04N"
 @inject ITaskService taskService
+@inject IResourceService resourceService
 @using ScientaScheduler.BlazorApp.Data
+@inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
 <h3>Gantt Şeması</h3>
 
 <div class="gantt" style="height: 85vh;width: 85vw;">
-    <SfGantt DataSource="@TaskDtos" Height="100%" Width="100%" Toolbar="@(new List<string>() { "Search" })" ProjectStartDate="@ProjectStart2" ProjectEndDate="@ProjectEnd2"
-             AllowFiltering="true" AllowSorting="true" AllowReordering="true" AllowResizing="true" AllowSelection="true" AllowRowDragAndDrop="true"
-             ShowColumnMenu="true" SelectedRowIndex="0" EnableContextMenu="true">
+        <SfGantt TValue="TaskDto" DataSource="@TaskDtos" Height="100%" Width="100%" Toolbar="@(new List<string>() { "Search" })" ProjectStartDate="@ProjectStart2" ProjectEndDate="@ProjectEnd2"
+                 AllowFiltering="true" AllowSorting="true" AllowReordering="true" AllowResizing="true" AllowSelection="true" AllowRowDragAndDrop="true"
+                 ShowColumnMenu="true" SelectedRowIndex="0" EnableContextMenu="true">
 
-        <GanttTaskFields Id="ID0" Name="Konu" StartDate="PlanlananBaslamaTarihi" EndDate="PlanlananBitisTarihi" Duration="Duration" ParentID="UstGorevID"></GanttTaskFields>
+            <GanttTaskFields Id="ID0" Name="Konu" StartDate="PlanlananBaslamaTarihi" EndDate="PlanlananBitisTarihi" Duration="Duration" ParentID="UstGorevID" ResourceInfo="Resources"></GanttTaskFields>
 
-        <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Auto" AllowTaskbarEditing="true" ></GanttEditSettings>
+            <GanttResourceFields Resources="ResourceDtos" TResources="ResourceDto" Id="ID" Name="AdiSoyadi"></GanttResourceFields>
+            <GanttLabelSettings LeftLabel="Resources" TValue="TaskDto"></GanttLabelSettings>
 
-        <GanttEvents TValue="TaskDto"  TaskbarEdited="TaskbarBeginEditHandler"
-                                      EndEdit="TaskbarBeginEditHandler"></GanttEvents>
-                                        
-        <GanttColumns>
-            <GanttColumn Field="ID0" HeaderText="ID" TextAlign="TextAlign.Right" Width="40" MinWidth="20" HideAtMedia="(min-width: 700px)" AllowReordering="false"></GanttColumn>
-            <GanttColumn Field="Konu" HeaderText="Görev Adı" Width="200" MinWidth="50"></GanttColumn>
-            <GanttColumn Field="PlanlananBaslamaTarihi" HeaderText="Başlama Tarihi" Width="100" MinWidth="20"></GanttColumn>
-            <GanttColumn Field="PlanlananBitisTarihi" HeaderText="Bitiş Tarihi" Width="100" MinWidth="20"></GanttColumn>
-            <GanttColumn Field="Duration" HeaderText="Süre" Width="100" MinWidth="20"></GanttColumn>
-        </GanttColumns>
-        <GanttEditDialogFields>
-            <GanttEditDialogField Type="GanttDialogFieldType.General" HeaderText="General Tab"></GanttEditDialogField>
-            <GanttEditDialogField Type="GanttDialogFieldType.Dependency" HeaderText="Dependency"></GanttEditDialogField>
-        </GanttEditDialogFields>
-    </SfGantt>
-</div>
-@code{    
-    private async void TaskbarBeginEditHandler(TaskbarEditedEventArgs<TaskDto> args)
-    {
-        await taskService.UpdateTask(args.Data);
+            <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Auto" AllowTaskbarEditing="true"></GanttEditSettings>
+
+            <GanttEvents TValue="TaskDto" TaskbarEdited="TaskbarBeginEditHandler"
+                         EndEdit="TaskbarBeginEditHandler"></GanttEvents>
+
+            <GanttTooltipSettings ShowTooltip="true" TValue="TaskDto">
+                <TaskbarTemplate>
+                    @{
+                        <div>ID: @context.ID0</div>
+                        <div>Konu: @context.Konu</div>
+                        <div>Başlama Tarihi: @context.PlanlananBaslamaTarihi</div>
+                        <div>Bitiş Tarihi: @context.PlanlananBitisTarihi</div>
+                        if (context.Resources.Any(r => r.ID == context.Sorumlu))
+                        {
+                            <div>Sorumlu: @context.Resources.Find(r => r.ID == context.Sorumlu).AdiSoyadi </div>
+                        }
+                        else
+                        {<div>Sorumlu: Atanmadı </div> }
+                    }
+                </TaskbarTemplate>
+            </GanttTooltipSettings>
+
+            <GanttColumns>
+                <GanttColumn Field="ID0" HeaderText="ID" TextAlign="TextAlign.Right" Width="40" MinWidth="20" HideAtMedia="(min-width: 700px)" AllowReordering="false"></GanttColumn>
+                <GanttColumn Field="Konu" HeaderText="Görev Adı" Width="200" MinWidth="50"></GanttColumn>
+                <GanttColumn Field="Resources" HeaderText="Sorumlu" Width="200px" MinWidth="50"></GanttColumn>
+                <GanttColumn Field="PlanlananBaslamaTarihi" HeaderText="Başlama Tarihi" Width="100" MinWidth="20"></GanttColumn>
+                <GanttColumn Field="PlanlananBitisTarihi" HeaderText="Bitiş Tarihi" Width="100" MinWidth="20"></GanttColumn>
+                <GanttColumn Field="Duration" HeaderText="Süre" Width="100" MinWidth="20"></GanttColumn>
+            </GanttColumns>
+            <GanttEditDialogFields>
+                <GanttEditDialogField Type="GanttDialogFieldType.General" HeaderText="General Tab"></GanttEditDialogField>
+                <GanttEditDialogField Type="GanttDialogFieldType.Dependency" HeaderText="Dependency"></GanttEditDialogField>
+            </GanttEditDialogFields>
+        </SfGantt>
+    </div>
+    @code{
+
+        public TaskDto taskDto = new TaskDto();
+        public ResourceDto resourceDto = new ResourceDto();
+        public List<TaskDto> TaskDtos = new List<TaskDto>();
+        public List<ResourceDto> ResourceDtos = new List<ResourceDto>();
+
+        private DateTime ProjectStart2 = new DateTime(2022, 12, 25);
+        private DateTime ProjectEnd2 = new DateTime(2023, 6, 6);
+
+        protected override void OnInitialized()
+        {
+            ResourceDtos = resourceService.GetResourceList();
+        }
+
+        protected async override Task OnInitializedAsync()
+        {
+            await Task.Delay(509);
+
+            TaskDtos = await taskService.GetActiveTaskList();
+
+            StateHasChanged();
+        }
+
+        private async void TaskbarBeginEditHandler(TaskbarEditedEventArgs<TaskDto> args)
+        {
+            await taskService.UpdateTask(args.Data);
+        }
     }
-    public TaskDto taskDto = new TaskDto();
-    public List<TaskDto> TaskDtos = new List<TaskDto>();
-
-    private DateTime ProjectStart2 = new DateTime(2022, 12, 25);
-    private DateTime ProjectEnd2 = new DateTime(2023, 6, 6);
-
-    protected async override Task OnInitializedAsync()
-    {
-        await Task.Delay(700);
-        TaskDtos = await taskService.GetActiveTaskList();
-        StateHasChanged();
-    }
-
-
-
-
-    //public void SaveHandler(CellSaveArgs<TaskDto> args)
-    //{
-    //    // Here, you can customize your code.
-    //}
-}
 
 
 
 
 
-
-@*<SfGantt DataSource="@TaskCollection" Height="450px" Width="1600px">
-        <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Durati
-    on="Duration" Progress="Progress" ParentID="ParentId"></GanttTaskFields>
-        <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Dialog" AllowTaskbarEditing="true"></GanttEditSettings>
+@*<SfGantt DataSource="@TaskCollection" Height="450px" Width="700px">
+        <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate"
+                         Duration="Duration" Progress="Progress" ParentID="ParentId">
+        </GanttTaskFields>
+        <GanttTooltipSettings ShowTooltip="true" TValue="TaskData">
+            <TaskbarTemplate>
+                @{
+                    <div>TaskID: @context.TaskId</div>
+                    <div>TaskName: @context.TaskId</div>
+                }
+            </TaskbarTemplate>
+        </GanttTooltipSettings>
     </SfGantt>
 
     @code{
         private List<TaskData> TaskCollection { get; set; }
-        protected override void OnInitialized()
-        {
-            this.TaskCollection = GetTaskCollection();
-        }
+        //protected override void OnInitialized()
+        //{
+        //    this.TaskCollection = GetTaskCollection();
+        //}
 
         public class TaskData
         {
@@ -84,12 +117,18 @@
             public int? ParentId { get; set; }
         }
 
-        public static List<TaskData> GetTaskCollection()
+        private static List<TaskData> GetTaskCollection()
         {
-            List<TaskData> Tasks = new List<TaskData>() {
-                new TaskData() { TaskId = 1, TaskName = "Project initiation", StartDate = new DateTime(2022, 04, 05), EndDate = new DateTime(2022, 04, 21), },
-                new TaskData() { TaskId = 2, TaskName = "Identify Site location", StartDate = new DateTime(2022, 04, 05), Duration = "4", Progress = 50, ParentId = 1 },
-                new TaskData() { TaskId = 3, TaskName = "Perform soil test", StartDate = new DateTime(2022, 04, 05), Duration = "4", Progress = 50, ParentId = 1 }
+            List<TaskData> Tasks = new List<TaskData>()
+    {
+                new TaskData() { TaskId = 1, TaskName = "Project initiation", StartDate = new DateTime(2022, 01, 04), EndDate = new DateTime(2022, 01, 17), },
+                new TaskData() { TaskId = 2, TaskName = "Identify Site location", StartDate = new DateTime(2022, 01, 04), Duration = "0", Progress = 30, ParentId = 1, },
+                new TaskData() { TaskId = 3, TaskName = "Perform soil test", StartDate = new DateTime(2022, 01, 04), Duration = "4", Progress = 40, ParentId = 1, },
+                new TaskData() { TaskId = 4, TaskName = "Soil test approval", StartDate = new DateTime(2022, 01, 04), Duration = "0", Progress = 30, ParentId = 1, },
+                new TaskData() { TaskId = 5, TaskName = "Project estimation", StartDate = new DateTime(2022, 01, 04), EndDate = new DateTime(2022, 01, 17), },
+                new TaskData() { TaskId = 6, TaskName = "Develop floor plan for estimation", StartDate = new DateTime(2022, 01, 06), Duration = "3", Progress = 30, ParentId = 5, },
+                new TaskData() { TaskId = 7, TaskName = "List materials", StartDate = new DateTime(2022, 01, 06), Duration = "3", Progress = 40, ParentId = 5, },
+                new TaskData() { TaskId = 8, TaskName = "Estimation approval", StartDate = new DateTime(2022, 01, 06), Duration = "0", Progress = 30, ParentId = 5, }
             };
             return Tasks;
         }
@@ -97,57 +136,232 @@
 
 
 
-@*<div class="col-lg-12 control-section">
-        <div class="content-wrapper">
-            <div class="row">
-                <SfGantt DataSource="@TaskCollection" Height="450px" Width="1600" HighlightWeekends="true" TreeColumnIndex="1"
-                         ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd">
-                    <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
-                                     Dependency="Predecessor" ParentID="ParentId"></GanttTaskFields>
-                    <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Dialog" AllowTaskbarEditing="true"></GanttEditSettings>
-                    <GanttColumns>
-                        <GanttColumn Field="TaskId"></GanttColumn>
-                        <GanttColumn Field="TaskName" Width="250"></GanttColumn>
-                        <GanttColumn Field="StartDate"></GanttColumn>
-                        <GanttColumn Field="EndDate"></GanttColumn>
-                        <GanttColumn Field="Duration"></GanttColumn>
-                        <GanttColumn Field="Progress"></GanttColumn>
-                        <GanttColumn Field="Predecessor"></GanttColumn>
-                    </GanttColumns>
-                    <GanttLabelSettings LeftLabel="TaskName" TValue="DefaultData.TaskData"> </GanttLabelSettings>
-                    <GanttSplitterSettings Position="30%"> </GanttSplitterSettings>
-                    <GanttTemplates TValue="DefaultData.TaskData">
-                        <TaskbarTemplate>
-                            @{
-                                var task = (context as DefaultData.TaskData);
-                            }
-                            <div class="e-gantt-child-taskbar-inner-div e-gantt-child-taskbar" style="height:22px;width:100%;">
-                                <div class="e-gantt-child-progressbar-inner-div e-gantt-child-progressbar" style="height:22px;width:@task.Progress%;">
-                                    <span class="e-task-label" style="position:absolute;top:3px;font-size:12px;text-overflow:ellipsis;height:90%;overflow:hidden;">@(task.Progress + "%")</span>
-                                </div>
-                            </div>
-                        </TaskbarTemplate>
-                        <ParentTaskbarTemplate>
-                            @{
-                                var task = (context as DefaultData.TaskData);
-                            }
-                            <div class="e-gantt-parent-taskbar-inner-div e-gantt-parent-taskbar" style="height:22px;text-overflow:ellipsis;width:100%">
-                                <div class="e-gantt-parent-progressbar-inner-div e-row-expand e-gantt-parent-progressbar " style="height:22px;text-overflow:ellipsis;width:@task.Progress%;">
-                                    <span class="e-task-label" style="position:absolute;top:3px;font-size:12px;text-overflow:ellipsis;height:90%;overflow:hidden;">@(task.Progress + "%")</span>
-                                </div>
-                            </div>
-                        </ParentTaskbarTemplate>
-                    </GanttTemplates>
-                </SfGantt>
-            </div>
-        </div>
-    </div>
-    @code {
-        private DateTime ProjectStart = new DateTime(2021, 3, 24);
-        private DateTime ProjectEnd = new DateTime(2021, 7, 6);
-        private List<DefaultData.TaskData> TaskCollection { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<SfGantt DataSource="@TaskCollection" Height="450px" Width="100%" ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd" WorkUnit="WorkUnit.Hour">
+        <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
+                         ParentID="ParentId" Work="Work" ResourceInfo="Resources" TaskType="TaskType">
+        </GanttTaskFields>
+        <GanttColumns>
+            <GanttColumn Field="TaskId" HeaderText="ID"></GanttColumn>
+            <GanttColumn Field="TaskName" HeaderText="Event Name"></GanttColumn>
+            <GanttColumn Field="Resources" HeaderText="Event Resources" Width="300px"></GanttColumn>
+            <GanttColumn Field="Duration" HeaderText="Duration"></GanttColumn>
+            <GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
+            <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
+        </GanttColumns>
+        <GanttEditSettings AllowEditing="true"></GanttEditSettings>
+        <GanttResourceFields Resources="@ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAlloacteData"></GanttResourceFields>
+        <GanttLabelSettings RightLabel="Resources" TValue="TaskData"></GanttLabelSettings>
+    </SfGantt>
+
+    @code{
+        private DateTime ProjectStart = new DateTime(2022, 03, 25);
+        private DateTime ProjectEnd = new DateTime(2022, 05, 10);
+        private List<TaskData> TaskCollection { get; set; }
+        private List<ResourceAlloacteData> ResourceCollection { get; set; }
+
         protected override void OnInitialized()
         {
-            this.TaskCollection = DefaultData.ProjectNewData();
+            this.TaskCollection = GetTaskCollection();
+            this.ResourceCollection = GetResources;
+        }
+        public class ResourceAlloacteData
+        {
+            public int ResourceId { get; set; }
+            public string ResourceName { get; set; }
+            public double Unit { get; set; }
+        }
+        public static List<ResourceAlloacteData> GetResources = new List<ResourceAlloacteData>()
+    {
+            new ResourceAlloacteData() { ResourceId= 1, ResourceName= "Martin Tamer"},
+            new ResourceAlloacteData() { ResourceId= 2, ResourceName= "Rose Fuller" },
+            new ResourceAlloacteData() { ResourceId= 3, ResourceName= "Margaret Buchanan" },
+            new ResourceAlloacteData() { ResourceId= 4, ResourceName= "Fuller King" },
+            new ResourceAlloacteData() { ResourceId= 5, ResourceName= "Davolio Fuller" },
+            new ResourceAlloacteData() { ResourceId= 7, ResourceName= "Fuller Buchanan" },
+            new ResourceAlloacteData() { ResourceId= 8, ResourceName= "Jack Davolio" },
+            new ResourceAlloacteData() { ResourceId= 9, ResourceName= "Tamer Vinet" },
+            new ResourceAlloacteData() { ResourceId= 10, ResourceName= "Vinet Fuller" },
+            new ResourceAlloacteData() { ResourceId= 11, ResourceName= "Bergs Anton" },
+            new ResourceAlloacteData() { ResourceId= 12, ResourceName= "Construction Supervisor" }
+        };
+
+        public class TaskData
+        {
+            public int TaskId { get; set; }
+            public string TaskName { get; set; }
+            public string TaskType { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+            public string Duration { get; set; }
+            public int Progress { get; set; }
+            public int? ParentId { get; set; }
+            public double? Work { get; set; }
+            public List<ResourceAlloacteData> Resources { get; set; }
+        }
+
+        public static List<TaskData> GetTaskCollection()
+        {
+            List<TaskData> Tasks = new List<TaskData>() {
+                new TaskData() { TaskId = 1, TaskName = "Project initiation", StartDate = new DateTime(2022, 03, 28), EndDate = new DateTime(2022, 07, 28), TaskType ="FixedDuration", Work=128, Duration="4" },
+                new TaskData() { TaskId = 2, TaskName = "Identify Site location", StartDate = new DateTime(2022, 03, 29), Progress = 30, ParentId = 1, Duration="2", Work=16, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=1, Unit=70} ,new ResourceAlloacteData() { ResourceId=6} } },
+                new TaskData() { TaskId = 3, TaskName = "Perform soil test", StartDate = new DateTime(2022, 03, 29), Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=2} ,new ResourceAlloacteData() { ResourceId=3} }, ParentId = 1, Work=96, Duration="4", TaskType="Fixed work" },
+                new TaskData() { TaskId = 4, TaskName = "Soil test approval", StartDate = new DateTime(2022, 03, 29), Duration = "1", Progress = 30, ParentId = 1, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=8} ,new ResourceAlloacteData() { ResourceId=9} }, Work=16, TaskType="Fixed work" },
+                new TaskData() { TaskId = 5, TaskName = "Project estimation", StartDate = new DateTime(2022, 03, 29), EndDate = new DateTime(2022, 04, 2), TaskType="Fixed Duration", Duration="4" },
+                new TaskData() { TaskId = 6, TaskName = "Develop floor plan for estimation", StartDate = new DateTime(2022, 03, 29), Duration = "3", Progress = 30, ParentId = 5, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=4} }, Work=30, TaskType="Fixed work" },
+                new TaskData() { TaskId = 7, TaskName = "List materials", StartDate = new DateTime(2022, 04, 01), Duration = "3", Progress = 30, ParentId = 5, TaskType="Fixedwork", Work=48, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=4},new ResourceAlloacteData() { ResourceId=8} }, },
+                new TaskData() { TaskId = 8, TaskName = "Estimation approval", StartDate = new DateTime(2022, 04, 01), Duration = "2", ParentId = 5, Work=60, TaskType="Fixedwork", Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId= 12},new ResourceAlloacteData() { ResourceId= 5} }, }
+            };
+            return Tasks;
+        }
+    }*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<SfGantt DataSource="@TaskCollection" Height="450px" Width="100%" ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd" WorkUnit="WorkUnit.Hour">
+        <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
+                         ParentID="ParentId" ResourceInfo="Resources">
+        </GanttTaskFields>
+        <GanttColumns>
+            <GanttColumn Field="TaskId" HeaderText="ID"></GanttColumn>
+            <GanttColumn Field="TaskName" HeaderText="Event Name"></GanttColumn>
+            <GanttColumn Field="Resources" HeaderText="Event Resources" Width="300px"></GanttColumn>
+            <GanttColumn Field="Duration" HeaderText="Duration"></GanttColumn>
+            <GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
+            <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
+        </GanttColumns>
+        <GanttResourceFields Resources="@ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAlloacteData"></GanttResourceFields>
+        <GanttLabelSettings RightLabel="Resources" TValue="TaskData"></GanttLabelSettings>
+    </SfGantt>*@
+
+@*@code{
+        private DateTime ProjectStart = new DateTime(2022, 03, 25);
+        private DateTime ProjectEnd = new DateTime(2022, 05, 10);
+        private List<TaskData> TaskCollection { get; set; }
+        private List<ResourceAlloacteData> ResourceCollection { get; set; }
+
+        protected override void OnInitialized()
+        {
+            this.TaskCollection = GetTaskCollection();
+            this.ResourceCollection = GetResources;
+        }
+
+        public class ResourceAlloacteData
+        {
+            public int ResourceId { get; set; }
+            public string ResourceName { get; set; }
+            public double Unit { get; set; }
+        }
+
+        public static List<ResourceAlloacteData> GetResources = new List<ResourceAlloacteData>()
+        {
+            new ResourceAlloacteData() { ResourceId= 1, ResourceName= "Martin Tamer"},
+            new ResourceAlloacteData() { ResourceId= 2, ResourceName= "Rose Fuller" },
+            new ResourceAlloacteData() { ResourceId= 3, ResourceName= "Margaret Buchanan" },
+            new ResourceAlloacteData() { ResourceId= 4, ResourceName= "Fuller King" },
+            new ResourceAlloacteData() { ResourceId= 5, ResourceName= "Davolio Fuller" },
+            new ResourceAlloacteData() { ResourceId= 7, ResourceName= "Fuller Buchanan" },
+            new ResourceAlloacteData() { ResourceId= 8, ResourceName= "Jack Davolio" },
+            new ResourceAlloacteData() { ResourceId= 9, ResourceName= "Tamer Vinet" },
+            new ResourceAlloacteData() { ResourceId= 10, ResourceName= "Vinet Fuller" },
+            new ResourceAlloacteData() { ResourceId= 11, ResourceName= "Bergs Anton" },
+            new ResourceAlloacteData() { ResourceId= 12, ResourceName= "Construction Supervisor" }
+        };
+
+        public class TaskData
+        {
+            public int TaskId { get; set; }
+            public string TaskName { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+            public string Duration { get; set; }
+            public int Progress { get; set; }
+            public int? ParentId { get; set; }
+            public List<ResourceAlloacteData> Resources { get; set; }
+        }
+
+        public static List<TaskData> GetTaskCollection()
+        {
+            List<TaskData> Tasks = new List<TaskData>() {
+                new TaskData() { TaskId = 1, TaskName = "Project initiation", StartDate = new DateTime(2022, 03, 28), EndDate = new DateTime(2022, 07, 28), Duration="4", Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=1, Unit=70} } },
+                new TaskData() { TaskId = 2, TaskName = "Identify Site location", StartDate = new DateTime(2022, 03, 29), Progress = 30, ParentId = 1, Duration="2", Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { } ,new ResourceAlloacteData() { ResourceId=6} } },
+                new TaskData() { TaskId = 3, TaskName = "Perform soil test", StartDate = new DateTime(2022, 03, 29), Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=2} ,new ResourceAlloacteData() { ResourceId=3} }, ParentId = 1, Duration="4" },
+                new TaskData() { TaskId = 4, TaskName = "Soil test approval", StartDate = new DateTime(2022, 03, 29), Duration = "1", Progress = 30, ParentId = 1, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=8} ,new ResourceAlloacteData() { ResourceId=9} } },
+                new TaskData() { TaskId = 5, TaskName = "Project estimation", StartDate = new DateTime(2022, 03, 29), EndDate = new DateTime(2022, 04, 2), Duration="4" },
+                new TaskData() { TaskId = 6, TaskName = "Develop floor plan for estimation", StartDate = new DateTime(2022, 03, 29), Duration = "3", Progress = 30, ParentId = 5, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=4} } },
+                new TaskData() { TaskId = 7, TaskName = "List materials", StartDate = new DateTime(2022, 04, 01), Duration = "3", Progress = 30, ParentId = 5, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=4},new ResourceAlloacteData() { ResourceId=8} }, },
+                new TaskData() { TaskId = 8, TaskName = "Estimation approval", StartDate = new DateTime(2022, 04, 01), Duration = "2", ParentId = 5, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId= 12},new ResourceAlloacteData() { ResourceId= 5} }, }
+            };
+            return Tasks;
         }
     }*@

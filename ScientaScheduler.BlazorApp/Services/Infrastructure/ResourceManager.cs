@@ -32,11 +32,11 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            using HttpResponseMessage response = httpClient.GetAsync("/Resource/GetResourceList").Result;
+            using HttpResponseMessage response =  httpClient.GetAsync("/Resource/GetResourceList").Result;
             
             if (response.IsSuccessStatusCode)
             {
-                var contentString = response.Content.ReadAsStringAsync().Result;
+                var contentString =  response.Content.ReadAsStringAsync().Result;
                 if (!string.IsNullOrEmpty(contentString))
                 {
                     resources = JsonConvert.DeserializeObject<List<ResourceDto>>(contentString);

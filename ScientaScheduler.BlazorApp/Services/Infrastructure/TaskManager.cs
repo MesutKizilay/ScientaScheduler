@@ -96,7 +96,7 @@ namespace ScientaScheduler.BlazorApp.Services.Infrastructure
             }
             foreach (var proje in projes)
             {
-                proje.Resources = resources.FindAll(r => r.ID == proje.Sorumlu);
+                proje.Resources = resources.FindAll(r => r.ID0 == proje.Sorumlu);
             }
             return projes;
         }

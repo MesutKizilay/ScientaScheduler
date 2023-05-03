@@ -8,7 +8,7 @@ namespace ScientaScheduler.Blazor.Library.DTOs
 {
     public class ResourceDto
     {
-        public int ID { get; set; }
+        public int ID0 { get; set; }
         public string AdiSoyadi { get; set; }
     }
 }

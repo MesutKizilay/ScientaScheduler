@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ScientaScheduler.Business.Services.Interface;
 using ScientaSchedurler.Application.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,23 @@ namespace ScientaScheduler.Business.Controllers
     public class ResourceController : ControllerBase
     {
         IResource _resource;
-
-        public ResourceController(IResource resource)
+        IResourceService _resourceService;
+        public ResourceController(IResource resource, IResourceService resourceService)
         {
             _resource = resource;
+            _resourceService = resourceService;
         }
 
+        //[HttpGet("GetResourceList")]
+        //public IActionResult GetResourceList()
+        //{
+        //    return Ok(_resource.GetResourceList());
+        //}        
+        
         [HttpGet("GetResourceList")]
-        public IActionResult GetResourceList()
+        public async Task<IActionResult> GetResourceList()
         {
-            return Ok(_resource.GetResourceList());
+            return Ok(await _resourceService.GetResourceList());
         }
     }
 }

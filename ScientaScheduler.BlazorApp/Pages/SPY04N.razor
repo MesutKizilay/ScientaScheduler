@@ -12,7 +12,7 @@
 
             <GanttTaskFields Id="ID0" Name="Konu" StartDate="PlanlananBaslamaTarihi" EndDate="PlanlananBitisTarihi" Duration="Duration" ParentID="UstGorevID" ResourceInfo="Resources"></GanttTaskFields>
 
-            <GanttResourceFields Resources="ResourceDtos" TResources="ResourceDto" Id="ID" Name="AdiSoyadi"></GanttResourceFields>
+            <GanttResourceFields Resources="ResourceDtos" TResources="ResourceDto" Id="ID0" Name="AdiSoyadi"></GanttResourceFields>
             <GanttLabelSettings LeftLabel="Resources" TValue="TaskDto"></GanttLabelSettings>
 
             <GanttEditSettings AllowEditing="true" Mode="Syncfusion.Blazor.Gantt.EditMode.Auto" AllowTaskbarEditing="true"></GanttEditSettings>
@@ -27,9 +27,9 @@
                         <div>Konu: @context.Konu</div>
                         <div>Başlama Tarihi: @context.PlanlananBaslamaTarihi</div>
                         <div>Bitiş Tarihi: @context.PlanlananBitisTarihi</div>
-                        if (context.Resources.Any(r => r.ID == context.Sorumlu))
+                        if (context.Resources.Any(r => r.ID0 == context.Sorumlu))
                         {
-                            <div>Sorumlu: @context.Resources.Find(r => r.ID == context.Sorumlu).AdiSoyadi </div>
+                            <div>Sorumlu: @context.Resources.Find(r => r.ID0 == context.Sorumlu).AdiSoyadi </div>
                         }
                         else
                         {<div>Sorumlu: Atanmadı </div> }
@@ -45,10 +45,10 @@
                 <GanttColumn Field="PlanlananBitisTarihi" HeaderText="Bitiş Tarihi" Width="100" MinWidth="20"></GanttColumn>
                 <GanttColumn Field="Duration" HeaderText="Süre" Width="100" MinWidth="20"></GanttColumn>
             </GanttColumns>
-            <GanttEditDialogFields>
+            @*<GanttEditDialogFields>
                 <GanttEditDialogField Type="GanttDialogFieldType.General" HeaderText="General Tab"></GanttEditDialogField>
                 <GanttEditDialogField Type="GanttDialogFieldType.Dependency" HeaderText="Dependency"></GanttEditDialogField>
-            </GanttEditDialogFields>
+            </GanttEditDialogFields>*@
         </SfGantt>
     </div>
     @code{
@@ -68,8 +68,8 @@
 
         protected async override Task OnInitializedAsync()
         {
-            await Task.Delay(509);
-
+            await Task.Delay(550);
+            //ResourceDtos = await resourceService.GetResourceList();
             TaskDtos = await taskService.GetActiveTaskList();
 
             StateHasChanged();
